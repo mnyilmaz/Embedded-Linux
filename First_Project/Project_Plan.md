@@ -59,12 +59,12 @@ This project has to be done within 6 weeks. That requires a dynamic agile projec
 
 ## Week 1
 
- - [ ] Understanding basic git commands to form a repository
- - [ ] Initialize a git repository
- - [ ] Learn how to use markdowns
+ - [x] Understanding basic git commands to form a repository
+ - [x] Initialize a git repository
+ - [x] Learn how to use markdowns
  - [ ] Installation of Raspberry Pi 3B+ and ascertaion related bash commands
- - [ ] Prepare a project plan
- - [ ] Prepare a Gantt Chart
+ - [x] Prepare a project plan
+ - [x] Prepare a Gantt Chart
  - [ ] Report into `Reports` folder
 
 ## Week 2
