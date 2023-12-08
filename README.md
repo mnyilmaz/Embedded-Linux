@@ -1,6 +1,8 @@
 # Embedded Linux Project Repository
 
-![Project Logo](https://media.tenor.com/q4L3wKD-P7YAAAAi/hydra-we-bhack.gif)
+<p align="center">
+  <img src="https://media.tenor.com/q4L3wKD-P7YAAAAi/hydra-we-bhack.gif" alt="Project Logo">
+</p>
 
 ## Overview
 
