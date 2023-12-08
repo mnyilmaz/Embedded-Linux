@@ -1,7 +1,7 @@
 # Embedded Linux Project Repository
 
 <p align="center">
-  <img src="https://www.freepnglogos.com/uploads/linux-png/linux-penguin-platform-server-system-icon-36.png" alt="Project Logo" width="150" height="150">
+  <img src="https://www.freepnglogos.com/uploads/linux-png/linux-penguin-platform-server-system-icon-36.png" alt="Project Logo" width="250" height="250">
 </p>
 
 ## Overview
