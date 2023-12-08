@@ -1,6 +1,6 @@
 # Embedded Linux Project Repository
 
-![Project Logo](https://www.vhv.rs/dpng/d/482-4821421_kali-linux-logo-transparent-line-art-hd-png.png)
+![Project Logo](https://i.pinimg.com/474x/cb/52/ed/cb52ed38ba67bdaef9f48225b6b9640f.jpg)
 
 ## Overview
 
