@@ -1,6 +1,6 @@
 # Embedded Linux Project Repository
 
-![Project Logo](https://i.pinimg.com/474x/cb/52/ed/cb52ed38ba67bdaef9f48225b6b9640f.jpg)
+![Project Logo](https://media.tenor.com/q4L3wKD-P7YAAAAi/hydra-we-bhack.gif)
 
 ## Overview
 
