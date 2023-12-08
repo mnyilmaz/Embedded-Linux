@@ -1,6 +1,6 @@
 # Embedded Linux Project Repository
 
-![Project Logo](https://www.kali.org/blog/kali-linux-2019-4-release/images/kali-preview-boot.gif)
+![Project Logo](https://www.vhv.rs/dpng/d/482-4821421_kali-linux-logo-transparent-line-art-hd-png.png)
 
 ## Overview
 
