@@ -1,6 +1,6 @@
 # Embedded Linux Project Repository
 
-![Project Logo](https://media.tenor.com/dHk-LfzHrtwAAAAi/linux-computer.gif)
+![Project Logo](https://media1.tenor.com/m/QGfhvbfZW8sAAAAC/kalilinux.gif)
 
 ## Overview
 
