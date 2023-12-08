@@ -1,6 +1,6 @@
 # Embedded Linux Project Repository
 
-![Project Logo](https://media1.tenor.com/m/QGfhvbfZW8sAAAAC/kalilinux.gif)
+![Project Logo](https://www.kali.org/blog/kali-linux-2019-4-release/images/kali-preview-boot.gif)
 
 ## Overview
 
