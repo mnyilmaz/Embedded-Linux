@@ -1,7 +1,7 @@
 # Embedded Linux Project Repository
 
 <p align="center">
-  <img src="https://media.tenor.com/q4L3wKD-P7YAAAAi/hydra-we-bhack.gif" alt="Project Logo">
+  <img src="https://e7.pngegg.com/pngimages/240/600/png-clipart-black-hat-briefings-kali-linux-backtrack-penetration-test-linux-distribution-linux-angle-white-thumbnail.png" alt="Project Logo">
 </p>
 
 ## Overview
