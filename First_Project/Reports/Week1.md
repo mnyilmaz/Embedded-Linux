@@ -23,9 +23,12 @@ In basically how to generate a repository and use is given step by step:
 `> git clone your_repo_clone`
  4. Your repository will be cloned as a directory on your local. After modifying your repository on your local, repository on the Github must be updated. Following commands:
  `> git add .` (adds all changes)
+
  `> git commit -m "your_commit_message"` 
+ 
  `> git push -u origin main` (main is your branch name, that can be changed)
- 5. These steps will allow users to update their repositories via using commands on terminal. These updates of course can be made via GitHub without using commands. These are most basic commands to clone and update a repository. In further more complicated steps will get involved.
+ 
+ 6. These steps will allow users to update their repositories via using commands on terminal. These updates of course can be made via GitHub without using commands. These are most basic commands to clone and update a repository. In further more complicated steps will get involved.
 
 # Installation of Raspberry Pi 3B+ and Related Bash Commands
 With the help of videos and blog pages, hardware installations were made. First week was intented to be the research stage so following pages and videos had been observed:
