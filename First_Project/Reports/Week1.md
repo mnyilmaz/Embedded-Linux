@@ -19,9 +19,12 @@ Github is a web-platform that host provider for software developments, using git
 In basically how to generate a repository and use is given step by step:
 1. To generate a repository click on "New" from your Profile/Repositories page. 
 2. After generated your very first repository click on "Code" and clone the repository.
-3. Open your terminal at linux and write down the command: 
+3. Open your terminal at linux and write down the command:
+   
 `> git clone your_repo_clone`
- 4. Your repository will be cloned as a directory on your local. After modifying your repository on your local, repository on the Github must be updated. Following commands:
+
+ 5. Your repository will be cloned as a directory on your local. After modifying your repository on your local, repository on the Github must be updated. Following commands:
+ 6. 
  `> git add .` (adds all changes)
 
  `> git commit -m "your_commit_message"` 
