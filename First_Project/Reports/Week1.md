@@ -21,15 +21,15 @@ In basically how to generate a repository and use is given step by step:
 2. After generated your very first repository click on "Code" and clone the repository.
 3. Open your terminal at linux and write down the command:
    
-`> git clone your_repo_clone`
+   `> git clone your_repo_clone`
 
  5. Your repository will be cloned as a directory on your local. After modifying your repository on your local, repository on the Github must be updated. Following commands:
- 6. 
- `> git add .` (adds all changes)
+    
+    `> git add .` (adds all changes)
 
- `> git commit -m "your_commit_message"` 
+    `> git commit -m "your_commit_message"` 
  
- `> git push -u origin main` (main is your branch name, that can be changed)
+    `> git push -u origin main` (main is your branch name, that can be changed)
  
  6. These steps will allow users to update their repositories via using commands on terminal. These updates of course can be made via GitHub without using commands. These are most basic commands to clone and update a repository. In further more complicated steps will get involved.
 
