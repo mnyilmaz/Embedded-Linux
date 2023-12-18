@@ -121,7 +121,7 @@ Gantt charts are quite essential in project planning to observe:
  in a visualized manner. That allows to follow the project better.
 
 <p align="center">
-  <img src="https://github.com/mnyilmaz/Embedded_Linux/blob/main/First_Project/Gantt_Chart.png" alt="Gantt Chart" width="300" height="300">
+  <img src="https://github.com/mnyilmaz/Embedded_Linux/blob/main/First_Project/Gantt_Chart.png" alt="Gantt Chart">
 </p>
 
 ---
