@@ -69,20 +69,17 @@ This project has to be done within 6 weeks. That requires a dynamic agile projec
 
 ## Week 2
 
- - [ ] Work on AT commands
- - [ ] Initialize a src folder for source files
- - [ ] Process the responses from the modem
- - [ ] Basic test
+ - [x] Work on AT commands
+ - [x] Initialize a src folder for source files
+ - [x] Process the responses from the modem
+ - [x] Basic test
 
 ## Week 3
 
- - [ ] Understanding basic git commands to form a repository
- - [ ] Initialize a git repository
- - [ ] Learn how to use markdowns
- - [ ] Installation of Raspberry Pi 3B+ and ascertaion related bash commands
- - [ ] Prepare a project plan
- - [ ] Prepare a Gantt Chart
- - [ ] Report into `Reports` folder
+ - [ ] Complete request code
+ - [ ] Initialize AT commands on the src file
+ - [ ] Send HTTP GET and POST request
+ - [ ] MQTT message sending
 
 ## Week 4
 
