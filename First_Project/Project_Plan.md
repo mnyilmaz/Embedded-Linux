@@ -120,6 +120,7 @@ Gantt charts are quite essential in project planning to observe:
  - Milestones
  in a visualized manner. That allows to follow the project better.
 
+Gannt Chart [gantt](https://app.instagantt.com/projects/S2Jn5SkFqpuBwyuZabYz/image?download=now&filetype=jpeg)
 ---
 
 |      Tasks      |    Begin Date    |   End Date   |
