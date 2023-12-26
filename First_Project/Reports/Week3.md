@@ -5,7 +5,7 @@ On the third week my responsibilites were:
 -   SSH connection over VSCode
 -   Process the responses from the modem
 -   Basic test
--   Week 2 report
+-   Week 3 report
   
 and all these are studied well. Report related to these titles can be found below.
 
