@@ -1,6 +1,9 @@
 # Embedded Linux Project Repository
 
-![Linux](photo1703696159.jpeg)
+<p align="center">
+  <img src="https://www.freepnglogos.com/uploads/linux-png/linux-penguin-platform-server-system-icon-36.png" alt="Project Logo" width="300" height="300">
+</p>
+
 ## Overview
 
 Welcome to the Embedded Linux Project! This project aims to [brief description of the project]. [Add any other relevant introductory information about the project]
