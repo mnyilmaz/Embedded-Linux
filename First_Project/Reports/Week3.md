@@ -162,7 +162,7 @@ After this phase with:
 	ifconfig
 	```
 make sure from *ppp0*.
-< PICTURE >
+![Alt text](ifconfig.png)
 
 Then ping it as:
 		```
