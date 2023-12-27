@@ -1,13 +1,20 @@
 # Week 3
 
 On the third week my responsibilites were:
--   Fix issues on Serial library
+-   Fix issues on Serial 
 -   SSH connection over VSCode
 -   Process the responses from the modem
 -   Basic test
--   Week 2 report
+-   HTTP connection
+-   Week 3 report
   
 and all these are studied well. Report related to these titles can be found below.
+
+# Fix Serial
+Instead of *serial* install *pyserial* as
+```
+pip install pyserial
+```
 
 # SSH Connection
 For this step following instructions had been applied:
