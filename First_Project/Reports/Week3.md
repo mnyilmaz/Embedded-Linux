@@ -89,7 +89,7 @@ AT+UHTTPC:
  - Send data
 
 > [AT Commands #1](https://www.engineersgarage.com/at-commands-gsm-at-command-set/)
->  [AT Commands #2](https://docs.monogoto.io/developer-zone/cloud-integrations/ubidots#send-data-using-http)
+> [AT Commands #2](https://docs.monogoto.io/developer-zone/cloud-integrations/ubidots#send-data-using-http)
 
 And here is the basic python code for the run AT commands without using your terminal:
 ```
@@ -161,8 +161,8 @@ After this phase with:
 	```
 	ifconfig
 	```
-make sure from *ppp0*.
-![Alt text](ifconfig.png)
+from *ppp0* make sure 
+![ifconfig](https://github.com/mnyilmaz/Embedded-Linux/assets/68549106/9819e47d-ea07-4bf6-82d5-05a800ffdb83)
 
 Then ping it as:
 		```
