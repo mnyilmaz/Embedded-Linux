@@ -76,20 +76,16 @@ This project has to be done within 6 weeks. That requires a dynamic agile projec
 
 ## Week 3
 
- - [ ] Complete request code
- - [ ] Initialize AT commands on the src file
- - [ ] Send HTTP GET and POST request
- - [ ] MQTT message sending
+ - [x] Initialize AT commands on the src file
+ - [x] SSH connection
+ - [ ] PPP connection
 
 ## Week 4
 
- - [ ] Understanding basic git commands to form a repository
- - [ ] Initialize a git repository
- - [ ] Learn how to use markdowns
- - [ ] Installation of Raspberry Pi 3B+ and ascertaion related bash commands
- - [ ] Prepare a project plan
- - [ ] Prepare a Gantt Chart
- - [ ] Report into `Reports` folder
+ - [ ] Complete request code
+ - [ ] Send HTTP GET and POST request
+ - [ ] MQTT message sending
+
 
 ## Week 5
 
