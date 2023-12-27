@@ -5,7 +5,7 @@ On the third week my responsibilites were:
 -   SSH connection over VSCode
 -   Process the responses from the modem
 -   Basic test
--   Week 3 report
+-   Week 2 report
   
 and all these are studied well. Report related to these titles can be found below.
 
@@ -79,7 +79,17 @@ AT+CGDCONT:
 AT+CIFSR:
  - Queries assigned IP address of the GSM module
 
-> [AT Commands](https://www.engineersgarage.com/at-commands-gsm-at-command-set/)
+AT+UHTTP:
+ - Set the HTTP base url and custom headers
+
+AT+UDWNFILE:
+ - Generate a JSON file containing the data you want to send
+
+AT+UHTTPC:
+ - Send data
+
+> [AT Commands #1](https://www.engineersgarage.com/at-commands-gsm-at-command-set/)
+>  [AT Commands #2](https://docs.monogoto.io/developer-zone/cloud-integrations/ubidots#send-data-using-http)
 
 And here is the basic python code for the run AT commands without using your terminal:
 ```
@@ -117,16 +127,7 @@ For status:
 
 > ppp_connection_manager.service - PPP Connection Manager
 > Loaded: loaded (/etc/systemd/system/ppp_connection_manager.service; enabled; vendor preset: enab>
-> Active: failed (Result: exit-code)
-
-First of all over PPP, HTTP GET and POST requests must be send. To achieve this task:
-		```
-	pip install requests
-	```
-	```
-	import requests
-	```
-
+> Active: failed (Result: exit-code) 
 
 
 For journalctl -xe:
@@ -181,3 +182,13 @@ sudo systemctl stop ModemManager
 sudo systemctl disable ModemManager
 ```
 
+First of all over PPP, HTTP GET and POST requests must be send. To achieve this task:
+		```
+	pip install requests
+	```
+	```
+	import requests
+	```
+
+### AT Commands to Send Data Using HTTP
+As we mentioned earlier at the AT Commands title, last three command are our main commands to communicate.
