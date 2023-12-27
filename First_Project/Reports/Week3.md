@@ -117,7 +117,16 @@ For status:
 
 > ppp_connection_manager.service - PPP Connection Manager
 > Loaded: loaded (/etc/systemd/system/ppp_connection_manager.service; enabled; vendor preset: enab>
-> Active: failed (Result: exit-code) 
+> Active: failed (Result: exit-code)
+
+First of all over PPP, HTTP GET and POST requests must be send. To achieve this task:
+		```
+	pip install requests
+	```
+	```
+	import requests
+	```
+
 
 
 For journalctl -xe:
