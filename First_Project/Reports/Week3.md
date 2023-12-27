@@ -192,3 +192,6 @@ First of all over PPP, HTTP GET and POST requests must be send. To achieve this 
 
 ### AT Commands to Send Data Using HTTP
 As we mentioned earlier at the AT Commands title, last three command are our main commands to communicate.
+![webhookGET](https://github.com/mnyilmaz/Embedded-Linux/assets/68549106/9026f559-f89f-4a9c-a1ef-b62a73202dd3)
+
+
