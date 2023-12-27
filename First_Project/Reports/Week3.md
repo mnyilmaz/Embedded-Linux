@@ -45,13 +45,13 @@ I started with errors throughout the first sending message 'Hello' with using se
 > TypeError: unicode strings are not supported, please encode to bytes: 'Hello'
 
 To fix this replace this:
-		```
-		sender.write('Hello')
+	```
+	sender.write('Hello')
 	```
     
   with this:
-  		```
-		sender.write(str.encode('Hello'))
+  	```
+	sender.write(str.encode('Hello'))
 	```
 
 When you run this code output will be blank. Why?
@@ -190,7 +190,7 @@ sudo systemctl disable ModemManager
 ```
 
 First of all over PPP, HTTP GET and POST requests must be send. To achieve this task:
-		```
+	```
 	pip install requests
 	```
 	```
