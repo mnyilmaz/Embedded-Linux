@@ -31,7 +31,6 @@ Point-to-Point Protocol (PPP) is a data link layer protocol designed for establi
     
    
 Later on AT commands have to become meaningful over the modem. Here is a guide from Quectel itself:
-- [Quectel AT Commands Manuel](https://www.quectel.com/wp-content/uploads/2021/05/Quectel_RG50xQRM5xxQ_Series_AT_Commands_Manual_V1.1.pdf)
 - [Modems and AT Commands](https://en.m.wikibooks.org/wiki/Serial_Programming/Modems_and_AT_Commands)
 - [AT Commands with Raspberry](https://forums.raspberrypi.com/viewtopic.php?t=183796)
   
