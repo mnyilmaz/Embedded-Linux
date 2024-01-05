@@ -98,7 +98,8 @@ This project has to be done within 6 weeks. That requires a dynamic agile projec
  - [ ] HTTP control
  - [ ] MQTT control
  - [ ] Additional feature implementation
- - [ ] Unit tests
+ - [ ] QMI, ECM and PPP comparison
+ - [ ] Unit tests (additional)
 
 # Gantt Chart
 
