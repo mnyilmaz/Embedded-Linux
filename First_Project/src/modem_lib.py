@@ -15,7 +15,7 @@ class HTTP:
         '''
         ip = input("Enter your IP: ") 
         apn = input("Enter your APN: ") 
-        command = 'AT+CGIP="%s"; AT+CGDCONT=1,"100.92.226.56","%s"' % (ip, apn)
+        command = 'AT+CGIP="%s"; AT+CGDCONT=1,"%s","%s"' % (ip, apn)
         try:
             modem.write(b'f' + command.encode() + b'\r')
         finally:
