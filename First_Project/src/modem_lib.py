@@ -112,7 +112,7 @@ if __name__ == "__main__":
     
     modem = serial.Serial('/dev/ttyUSB2', 115200, timeout=5)
     byte = 256
-    url = "https://webhook.site/aa36a3cd-93d8-4d37-9ecc-6ab8292fe2ec"
+    url = "https://webhook.site/"
 
     AT_COMMANDS = {
         'classic': 'AT+QCFG',
