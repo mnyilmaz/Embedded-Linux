@@ -89,9 +89,9 @@ This project has to be done within 6 weeks. That requires a dynamic agile projec
 
 ## Week 5
 
- - [ ] HTTP implementation with additional functions
- - [ ] MQTT implementation
- - [ ] Improvements on library
+ - [x] HTTP implementation with additional functions
+ - [x] MQTT implementation
+ - [x] Improvements on library
 
 ## Week 6
 
