@@ -43,6 +43,10 @@ class Connection:
             print("Received AT+CGDCONT=1 response:\n",response.decode())
     
     
+    def check_APN(self):
+        self.at_command(AT_COMMANDS['check_APN'], AT_COMMANDS['check_APN'])
+    
+    
     # Displays current settings
     def display_current(self):
         self.at_command(AT_COMMANDS['display'], AT_COMMANDS['display'])
@@ -126,6 +130,7 @@ class HTTP:
                 response = modem.read(byte)
                 print("Received AT+QICSGP=1 response:\n", response.decode())
                 self.con.at_command(HTTP_AT_COMMANDS['activate_PDP'], HTTP_AT_COMMANDS['activate_PDP'])
+                self.con.at_command(HTTP_AT_COMMANDS['check_status'], HTTP_AT_COMMANDS['check_status'])
     
     
     def check_url(self):
@@ -176,6 +181,7 @@ if __name__ == "__main__":
         'base1': 'AT+CPIN?',
         'base2': 'AT+CREG?',
         'base3': 'AT+CGREG?',
+        'check_APN': 'AT+CGDCONT?',
         'PDP_check': 'AT+CGACT=?',
         'PDP_set': 'AT+CGACT=1,1',
         'IP_check': 'AT+CGPADDR=?',
@@ -186,7 +192,8 @@ if __name__ == "__main__":
     
     HTTP_AT_COMMANDS = {
         'querry_PDP': 'AT+QIACT?', # Query the state of PDP context
-        'activate_PDP': 'AT+QIACT=1', # Activate PDP        
+        'activate_PDP': 'AT+QIACT=1', # Activate PDP
+        'check_status': 'AT+QICSGP=1',        
         'http_settings': 'AT+QHTTPCFG=?', # Configures parameters for HTTP(S) server
         'connect': 'AT+QIOPEN=1,0,"TCP","https://webhook.site/83abfba6-e208-43d9-8cd0-fe5bd2c4a792",80',
         'check_url': 'AT+QHTTPURL=?',
@@ -236,3 +243,4 @@ if __name__ == "__main__":
     
     
     modem.close()
+    
