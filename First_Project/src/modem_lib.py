@@ -13,7 +13,10 @@ class Connection:
     
     # Check if base connection exists
     def check_base(self):
-        self.at_command(AT_COMMANDS['base'], AT_COMMANDS['base'])
+        self.at_command(AT_COMMANDS['base1'], AT_COMMANDS['base1'])
+        self.at_command(AT_COMMANDS['base2'], AT_COMMANDS['base2'])
+        self.at_command(AT_COMMANDS['base3'], AT_COMMANDS['base3'])
+        
     
     # Check IP
     def check_IP(self):
@@ -165,12 +168,14 @@ class MQTT:
     
 if __name__ == "__main__":
     
-    modem = serial.Serial('/dev/ttyUSB2', 115200, timeout=5)
+    modem = serial.Serial('/dev/ttyUSB2', 460800 timeout=5)
     byte = 256
     http_url = "https://webhook.site/83abfba6-e208-43d9-8cd0-fe5bd2c4a792"
 
     AT_COMMANDS = {
-        'base': 'AT+CGREG?',
+        'base1': 'AT+CPIN?',
+        'base2': 'AT+CREG?',
+        'base3': 'AT+CGREG?',
         'PDP_check': 'AT+CGACT=?',
         'PDP_set': 'AT+CGACT=1,1',
         'IP_check': 'AT+CGPADDR=?',
@@ -231,4 +236,3 @@ if __name__ == "__main__":
     
     
     modem.close()
-    
