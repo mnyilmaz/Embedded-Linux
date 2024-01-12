@@ -6,7 +6,9 @@ class Connection:
     def at_command(self, at_command, explanation):
         try:
             modem.write((at_command + '\r\n').encode())
+            time.sleep(10)
         finally:
+            time.sleep(10)
             response = modem.read(byte)
             print(f"Received {explanation} response:\n{response.decode()}\n")
             return response
@@ -72,7 +74,7 @@ class Connection:
         finally:
             response = modem.read(byte)
             if 'ERROR' in response:
-                print('An error occured')
+                print('An error occured\n')
                 modem.close()
             print("Received AT_CFUN response:\n", response.decode())
 
@@ -136,6 +138,9 @@ class HTTP:
     def check_url(self):
         self.con.at_command(HTTP_AT_COMMANDS['check_url'], HTTP_AT_COMMANDS['check_url'])
         
+    def connect(self):
+        self.con.at_command(HTTP_AT_COMMANDS['connect'], HTTP_AT_COMMANDS['connect'])  
+        
     def http_url(self):
         self.con.at_command(HTTP_AT_COMMANDS['webhook'], HTTP_AT_COMMANDS['webhook'])
         
@@ -164,16 +169,32 @@ class MQTT:
     
     def config(self):
         self.con.at_command(MQTT_AT_COMMANDS['settings'], MQTT_AT_COMMANDS['settings'])  
-
-    def check_network(self):
-        self.con.at_command(MQTT_AT_COMMANDS['is_open'], MQTT_AT_COMMANDS['is_open'])
-        
+    
+    def set_connection(self):
+        self.con.at_command(MQTT_AT_COMMANDS['set'], MQTT_AT_COMMANDS['set'])
+    
     def open_network(self):
         self.con.at_command(MQTT_AT_COMMANDS['open_net'], MQTT_AT_COMMANDS['open_net'])
+                
+    def check_network(self):
+        self.con.at_command(MQTT_AT_COMMANDS['is_open'], MQTT_AT_COMMANDS['is_open'])
+    
+    def form(self):
+        self.con.at_command(MQTT_AT_COMMANDS['form'], MQTT_AT_COMMANDS['form'])
+        
+    def connect(self):
+        self.con.at_command(MQTT_AT_COMMANDS['connect'], MQTT_AT_COMMANDS['connect']) 
+    
+    def subscribe(self):
+        self.con.at_command(MQTT_AT_COMMANDS['subscribe'], MQTT_AT_COMMANDS['subscribe'])
+    
+    def publish_message(self):
+        self.con.at_command(MQTT_AT_COMMANDS['publish'], MQTT_AT_COMMANDS['publish']) 
+        
     
 if __name__ == "__main__":
     
-    modem = serial.Serial('/dev/ttyUSB2', 460800 timeout=5)
+    modem = serial.Serial('/dev/ttyUSB2', 115200, timeout=5)
     byte = 256
     http_url = "https://webhook.site/83abfba6-e208-43d9-8cd0-fe5bd2c4a792"
 
@@ -196,7 +217,7 @@ if __name__ == "__main__":
         'check_status': 'AT+QICSGP=1',        
         'http_settings': 'AT+QHTTPCFG=?', # Configures parameters for HTTP(S) server
         'connect': 'AT+QIOPEN=1,0,"TCP","https://webhook.site/83abfba6-e208-43d9-8cd0-fe5bd2c4a792",80',
-        'check_url': 'AT+QHTTPURL=?',
+        'check_url': 'AT+QHTTPURL?',
         'webhook': 'AT+QHTTPURL=57,80',
         'check_get': 'AT+QHTTPGET=?',
         'get_request': 'AT+QHTTPGET=80',
@@ -209,13 +230,17 @@ if __name__ == "__main__":
     MQTT_AT_COMMANDS = {
         'settings':'AT+QMTCFG=?', # Configure optional parameters of MQTT
         'is_open': 'AT+QMTOPEN?', # Check status 
-        'open_net': 'AT+QMTOPEN="1","broker.hivemq.com","8883"', # Open a network for MQTT client id, hostname, port
+        'set': 'AT+QMTCFG=\"recv/mode\",0,0,1',
+        'open_net': 'AT+QMTOPEN=0,\"mqtt-dashboard.com\",8884', # Open a network for MQTT client id, hostname, port
         'close_net': 'AT+QMTCLOSE=1',
-        'connect': 'AT+QMTCONN=1,"deneme","deneme"',
+        'connect': 'AT+QMTCONN=0,\"clientId-I9jvHNpuPP\"',
+        'subscribe': 'AT+QMTSUB=0,1,\"testtopic/1\",0', # clientID, messageID, topic
+        
+        #'form': 'AT+MQTTCREATE="mqtt-dashboard.com",8884,"clientId-izdyqj2TFJ",90,0,"test-topic","test1234"',
+        
+        'publish': 'AT+QMTPUBEX=0,0,0,0,\"testtopic/2\",30 ', # clientID, messageID, qos
         'disconnect': 'AT+QMTDISC=1', # Disconnect a client
-        'subscribe': 'AT+QMTSUB=1,1,"message_list"', # cleintID, messageID, topic
         'unsubscribe': 'AT+QMTUNS=1,1,"message_list"', # cleintID, messageID, topic
-        'publish': 'AT+QMTPUBEX=1,1,1', # clientID, messageID, qos
         'read': 'AT+QMTRECV=1', # clientID
         
     }
@@ -226,10 +251,11 @@ if __name__ == "__main__":
     #connected.check_IP()
     #connected.set_APN()
     
-    http = HTTP()
+    #http = HTTP()
     #http.config()
     #http.set_PDP()
     #http.check_url()
+    #http.connect()
     #http.http_url()
     #http.check_get()
     #http.http_get()
@@ -238,9 +264,12 @@ if __name__ == "__main__":
         
     mqtt = MQTT()
     #mqtt.config()
-    #mqtt.check_network()
+    mqtt.set_connection()
     mqtt.open_network()
-    
+    mqtt.check_network()
+    #mqtt.connect()
+    #mqtt.subscribe()
+    mqtt.publish_message()
     
     modem.close()
     
