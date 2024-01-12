@@ -5,7 +5,7 @@ class Connection:
 
     def at_command(self, at_command, explanation):
         try:
-            modem.write((at_command + '\r\n').encode())
+            modem.write((at_command + '\r').encode())
             time.sleep(10)
         finally:
             time.sleep(10)
@@ -135,25 +135,17 @@ class HTTP:
                 self.con.at_command(HTTP_AT_COMMANDS['check_status'], HTTP_AT_COMMANDS['check_status'])
     
     
-    def check_url(self):
-        self.con.at_command(HTTP_AT_COMMANDS['check_url'], HTTP_AT_COMMANDS['check_url'])
-        
     def connect(self):
+        self.con.at_command(HTTP_AT_COMMANDS['check_url'], HTTP_AT_COMMANDS['check_url'])
         self.con.at_command(HTTP_AT_COMMANDS['connect'], HTTP_AT_COMMANDS['connect'])  
-        
-    def http_url(self):
         self.con.at_command(HTTP_AT_COMMANDS['webhook'], HTTP_AT_COMMANDS['webhook'])
         
-    def check_get(self):
-        self.con.at_command(HTTP_AT_COMMANDS['check_get'], HTTP_AT_COMMANDS['check_get'])
-        
     def http_get(self):
+        self.con.at_command(HTTP_AT_COMMANDS['check_get'], HTTP_AT_COMMANDS['check_get'])
         self.con.at_command(HTTP_AT_COMMANDS['get_request'], HTTP_AT_COMMANDS['get_request'])
         
-    def check_post(self):
-        self.con.at_command(HTTP_AT_COMMANDS['check_post'], HTTP_AT_COMMANDS['check_post'])
-
     def http_post(self):
+        self.con.at_command(HTTP_AT_COMMANDS['check_post'], HTTP_AT_COMMANDS['check_post'])
         self.con.at_command(HTTP_AT_COMMANDS['post_request'], HTTP_AT_COMMANDS['post_request'])
 
     def http_stop(self):
@@ -170,23 +162,21 @@ class MQTT:
     def config(self):
         self.con.at_command(MQTT_AT_COMMANDS['settings'], MQTT_AT_COMMANDS['settings'])  
     
-    def set_connection(self):
-        self.con.at_command(MQTT_AT_COMMANDS['set'], MQTT_AT_COMMANDS['set'])
-    
-    def open_network(self):
-        self.con.at_command(MQTT_AT_COMMANDS['open_net'], MQTT_AT_COMMANDS['open_net'])
-                
-    def check_network(self):
-        self.con.at_command(MQTT_AT_COMMANDS['is_open'], MQTT_AT_COMMANDS['is_open'])
-    
-    def form(self):
-        self.con.at_command(MQTT_AT_COMMANDS['form'], MQTT_AT_COMMANDS['form'])
-        
     def connect(self):
+        self.con.at_command(MQTT_AT_COMMANDS['set'], MQTT_AT_COMMANDS['set'])
+        time.sleep(5)
+        self.con.at_command(MQTT_AT_COMMANDS['open_net'], MQTT_AT_COMMANDS['open_net'])
+        time.sleep(5)
+        self.con.at_command(MQTT_AT_COMMANDS['is_open'], MQTT_AT_COMMANDS['is_open'])
+        time.sleep(5)
         self.con.at_command(MQTT_AT_COMMANDS['connect'], MQTT_AT_COMMANDS['connect']) 
     
     def subscribe(self):
-        self.con.at_command(MQTT_AT_COMMANDS['subscribe'], MQTT_AT_COMMANDS['subscribe'])
+        time.sleep(5)
+        self.con.at_command(MQTT_AT_COMMANDS['sub1'], MQTT_AT_COMMANDS['sub1'])
+        time.sleep(5)
+        self.con.at_command(MQTT_AT_COMMANDS['sub2'], MQTT_AT_COMMANDS['sub2'])
+        
     
     def publish_message(self):
         self.con.at_command(MQTT_AT_COMMANDS['publish'], MQTT_AT_COMMANDS['publish']) 
@@ -205,10 +195,10 @@ if __name__ == "__main__":
         'check_APN': 'AT+CGDCONT?',
         'PDP_check': 'AT+CGACT=?',
         'PDP_set': 'AT+CGACT=1,1',
-        'IP_check': 'AT+CGPADDR=?',
+        'IP_check': 'AT+CGPADDR?',
         'classic': 'AT+QCFG',
         'display': 'AT+V',
-        'ue_reboot': 'AT+CFUN',
+        'ue_reboot': 'AT+CFUN=1',
     }
     
     HTTP_AT_COMMANDS = {
@@ -218,7 +208,7 @@ if __name__ == "__main__":
         'http_settings': 'AT+QHTTPCFG=?', # Configures parameters for HTTP(S) server
         'connect': 'AT+QIOPEN=1,0,"TCP","https://webhook.site/83abfba6-e208-43d9-8cd0-fe5bd2c4a792",80',
         'check_url': 'AT+QHTTPURL?',
-        'webhook': 'AT+QHTTPURL=57,80',
+        'webhook': 'AT+QHTTPURL=\"https://webhook.site/83abfba6-e208-43d9-8cd0-fe5bd2c4a792\",80',
         'check_get': 'AT+QHTTPGET=?',
         'get_request': 'AT+QHTTPGET=80',
         'check_post': 'AT+QHTTPPOST=?',
@@ -229,20 +219,18 @@ if __name__ == "__main__":
     
     MQTT_AT_COMMANDS = {
         'settings':'AT+QMTCFG=?', # Configure optional parameters of MQTT
+        'set': 'AT+QMTCFG="recv/mode",1,0,1',
+        'all': 'AT+QMTCFG=\"aliauth\",0,\"oyjtmPl5a5j\",\"MQTT_TEST\",\"wN9Y6pZSIIy7Exa5qVzcmigEGO4kAazZ\"',
+        'open_net': 'AT+QMTOPEN=1,"broker.hivemq.com",1883', # Open a network for MQTT client id, hostname, port
         'is_open': 'AT+QMTOPEN?', # Check status 
-        'set': 'AT+QMTCFG=\"recv/mode\",0,0,1',
-        'open_net': 'AT+QMTOPEN=0,\"mqtt-dashboard.com\",8884', # Open a network for MQTT client id, hostname, port
-        'close_net': 'AT+QMTCLOSE=1',
-        'connect': 'AT+QMTCONN=0,\"clientId-I9jvHNpuPP\"',
-        'subscribe': 'AT+QMTSUB=0,1,\"testtopic/1\",0', # clientID, messageID, topic
-        
-        #'form': 'AT+MQTTCREATE="mqtt-dashboard.com",8884,"clientId-izdyqj2TFJ",90,0,"test-topic","test1234"',
-        
-        'publish': 'AT+QMTPUBEX=0,0,0,0,\"testtopic/2\",30 ', # clientID, messageID, qos
-        'disconnect': 'AT+QMTDISC=1', # Disconnect a client
-        'unsubscribe': 'AT+QMTUNS=1,1,"message_list"', # cleintID, messageID, topic
+        'connect': 'AT+QMTCONN=1,"embedded"',
+        'sub1': 'AT+QMTSUB=1,1,"topic/example",2', # clientID, messageID, topic
+        'sub2': 'AT+QMTSUB=1,1,"topic/pub",0', # clientID, messageID, topic
+        'publish': 'AT+QMTPUBEX=1,0,0,0,"topic/pub",30', # clientID, messageID, qos
         'read': 'AT+QMTRECV=1', # clientID
-        
+        'close_net': 'AT+QMTCLOSE=1',
+        'disconnect': 'AT+QMTDISC=1', # Disconnect a client
+        'unsubscribe': 'AT+QMTUNS=1,1,"message_list"', # cleintID, messageID, topic      
     }
     
     connected = Connection()
@@ -254,22 +242,14 @@ if __name__ == "__main__":
     #http = HTTP()
     #http.config()
     #http.set_PDP()
-    #http.check_url()
     #http.connect()
-    #http.http_url()
-    #http.check_get()
     #http.http_get()
-    #http.check_post()
     #http.http_post()
         
     mqtt = MQTT()
     #mqtt.config()
-    mqtt.set_connection()
-    mqtt.open_network()
-    mqtt.check_network()
-    #mqtt.connect()
+    mqtt.connect()
     #mqtt.subscribe()
-    mqtt.publish_message()
+    #mqtt.publish_message()
     
     modem.close()
-    
