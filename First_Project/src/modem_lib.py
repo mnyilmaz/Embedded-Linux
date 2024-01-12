@@ -123,7 +123,7 @@ class HTTP:
     
     time.sleep(5)
     def set_PDP(self):
-        response = (self.con.at_command(HTTP_AT_COMMANDS['querry_PDP'], HTTP_AT_COMMANDS['querry_PDP'])).decode()
+        response = (self.con.at_command(PDP_AT_COMMANDS['querry_PDP'], PDP_AT_COMMANDS['querry_PDP'])).decode()
         if 'OK' in response:
             try:
                 apn = input("Enter your APN: ")
@@ -131,8 +131,8 @@ class HTTP:
             finally:
                 response = modem.read(byte)
                 print("Received AT+QICSGP=1 response:\n", response.decode())
-                self.con.at_command(HTTP_AT_COMMANDS['activate_PDP'], HTTP_AT_COMMANDS['activate_PDP'])
-                self.con.at_command(HTTP_AT_COMMANDS['check_status'], HTTP_AT_COMMANDS['check_status'])
+                self.con.at_command(PDP_AT_COMMANDS['activate_PDP'], PDP_AT_COMMANDS['activate_PDP'])
+                self.con.at_command(PDP_AT_COMMANDS['check_status'], PDP_AT_COMMANDS['check_status'])
     
     
     def connect(self):
@@ -200,19 +200,22 @@ if __name__ == "__main__":
         'display': 'AT+V',
         'ue_reboot': 'AT+CFUN=1',
     }
-    
-    HTTP_AT_COMMANDS = {
+
+    PDP_AT_COMMANDS = {
         'querry_PDP': 'AT+QIACT?', # Query the state of PDP context
         'activate_PDP': 'AT+QIACT=1', # Activate PDP
-        'check_status': 'AT+QICSGP=1',        
-        'http_settings': 'AT+QHTTPCFG=?', # Configures parameters for HTTP(S) server
-        'connect': 'AT+QIOPEN=1,0,"TCP","https://webhook.site/83abfba6-e208-43d9-8cd0-fe5bd2c4a792",80',
+        'check_status': 'AT+QICSGP=1', 
+    }
+    
+    HTTP_AT_COMMANDS = {
+        'settings': 'AT+QHTTPCFG=?', # Configures parameters for HTTP(S) server
+        'webhook': 'AT+QHTTPURL=57,80',
         'check_url': 'AT+QHTTPURL?',
-        'webhook': 'AT+QHTTPURL=\"https://webhook.site/83abfba6-e208-43d9-8cd0-fe5bd2c4a792\",80',
-        'check_get': 'AT+QHTTPGET=?',
         'get_request': 'AT+QHTTPGET=80',
-        'check_post': 'AT+QHTTPPOST=?',
-        'post_request': 'AT+QHTTPPOST=48,80,80',
+        'check_get': 'AT+QHTTPGET?',
+        'read':'AT+QHTTPREAD=80',
+        'post_request': 'AT+QHTTPPOST=20,80,100', #AT+QHTTPPOST=10,50
+        'check_post': 'AT+QHTTPPOST?',
         'cancel': 'AT+QHTTPSTOP',
         'end': 'AT+QICLOSE=1',
     }
@@ -220,17 +223,16 @@ if __name__ == "__main__":
     MQTT_AT_COMMANDS = {
         'settings':'AT+QMTCFG=?', # Configure optional parameters of MQTT
         'set': 'AT+QMTCFG="recv/mode",1,0,1',
-        'all': 'AT+QMTCFG=\"aliauth\",0,\"oyjtmPl5a5j\",\"MQTT_TEST\",\"wN9Y6pZSIIy7Exa5qVzcmigEGO4kAazZ\"',
-        'open_net': 'AT+QMTOPEN=1,"broker.hivemq.com",1883', # Open a network for MQTT client id, hostname, port
+        'open_net': 'AT+QMTOPEN=0,"broker.hivemq.com",1883', # Open a network for MQTT client id, hostname, port
         'is_open': 'AT+QMTOPEN?', # Check status 
-        'connect': 'AT+QMTCONN=1,"embedded"',
-        'sub1': 'AT+QMTSUB=1,1,"topic/example",2', # clientID, messageID, topic
-        'sub2': 'AT+QMTSUB=1,1,"topic/pub",0', # clientID, messageID, topic
-        'publish': 'AT+QMTPUBEX=1,0,0,0,"topic/pub",30', # clientID, messageID, qos
-        'read': 'AT+QMTRECV=1', # clientID
-        'close_net': 'AT+QMTCLOSE=1',
-        'disconnect': 'AT+QMTDISC=1', # Disconnect a client
-        'unsubscribe': 'AT+QMTUNS=1,1,"message_list"', # cleintID, messageID, topic      
+        'connect': 'AT+QMTCONN=0,"client/1"',
+        'sub1': 'AT+QMTSUB=0,1,"topic/example",2', # clientID, messageID, topic
+        'sub2': 'AT+QMTSUB=0,1,"topic/pub",0', # clientID, messageID, topic
+        'publish': 'AT+QMTPUBEX=0,0,0,0,"topic/pub",30', # clientID, messageID, qos
+        'read': 'AT+QMTRECV=0', # clientID
+        'close_net': 'AT+QMTCLOSE=0',
+        'disconnect': 'AT+QMTDISC=0', # Disconnect a client
+        'unsubscribe': 'AT+QMTUNS=0,1,"topic/example"', # cleintID, messageID, topic      
     }
     
     connected = Connection()
