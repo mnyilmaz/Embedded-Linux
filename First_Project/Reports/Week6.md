@@ -22,5 +22,12 @@ For  MQTT I've formed a class named **MQTT**. Later on one by one added AT comma
 
 ![Screenshot from 2024-01-09 11-22-39](https://github.com/mnyilmaz/Embedded-Linux/assets/68549106/ee9bc9d2-d78f-4117-854b-0c6f92ef071a)
 
+2.  **AT+QMTOPEN:** Set connection with the server. Can be used as: 			  **AT+QMTOPEN=0,\"broker.hivemq.com\",8884**
 
-2. 
+3.  **AT+QMTCONN:** Connect to the client. Can be used as: 			  **AT+QMTCONN=0,"clientId"**
+
+4. **AT+QMTSUB:** Subscription to the topic. Can be used as: 			  **AT+QMTSUB=0,1,"testtopic/3",1**
+On every subscription process raised an ERROR. Connection is set, topic is set but subscription and publish process fail each time that i ran the code. Even trying with atcom process has failed.
+
+![Screenshot from 2024-01-11 20-31-44](https://github.com/mnyilmaz/Embedded-Linux/assets/68549106/fec09dac-1b57-4c2e-94fa-f58ccd10ef85)
+
