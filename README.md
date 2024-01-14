@@ -10,7 +10,7 @@ Repository includes embedded linux project that can provide new functions and li
 
 ## Features
 
-- **Project 1: AT Command Library** [AT Commands](!https://github.com/mnyilmaz/Embedded-Linux/blob/main/First_Project/src/modem_lib.py)
+- **Project 1: [AT Command Library](https://github.com/mnyilmaz/Embedded-Linux/blob/main/First_Project/src/modem_lib.py)**
 
 
 ### Prerequisites
