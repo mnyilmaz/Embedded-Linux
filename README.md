@@ -15,15 +15,21 @@ Repository includes embedded linux project that can provide new functions and li
 
 ### Prerequisites
 
-- [List of prerequisites, e.g., hardware, software]
+- Raspberry Pi 3B+
+- SD Card and reader
+- Raspberry Pi Base Hat
+- Quectel EG25-G Modem
+- Antennas
+- SIM card
 
 ### Installation
 
-1. [Step 1]
-2. [Step 2]
-3. [Step 3]
+1. Install an OS for Raspberry
+2. Install minicom to test commands
+3. Enable SSH configuration on Raspberry
+4. Configure SSH configuration on VSCode
 
 ### Usage
 
 ```bash
-$ command_to_run_project
+$ python modem_lib.py
