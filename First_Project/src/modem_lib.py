@@ -1,8 +1,9 @@
 import serial
 import time
 
-class Connection:
 
+# Base class
+class Connection:
     def at_command(self, at_command, explanation):
         try:
             modem.write((at_command + '\r').encode())
@@ -15,68 +16,29 @@ class Connection:
     
     # Check if base connection exists
     def check_base(self):
-        self.at_command(AT_COMMANDS['base1'], AT_COMMANDS['base1'])
-        self.at_command(AT_COMMANDS['base2'], AT_COMMANDS['base2'])
-        self.at_command(AT_COMMANDS['base3'], AT_COMMANDS['base3'])
-        
+        self.at_command(BASE['sim'], 'SIM status')
+        self.at_command(BASE['network'], 'Network registration')
+        self.at_command(BASE['gprs'], 'GPRS registration')
     
-    # Check IP
-    def check_IP(self):
-        self.at_command(AT_COMMANDS['IP_check'], AT_COMMANDS['IP_check'])
-        
-    # Check PDP connection, expect output +CGACT: (0,1)
-    def check_PDP(self):
-        response = (self.at_command(AT_COMMANDS['PDP_check'], AT_COMMANDS['PDP_check'])).decode()
-        if 'ERROR' in response:
-            print('An error occured')
-            self.con.at_command(AT_COMMANDS['PDP_set'], AT_COMMANDS['PDP_set'])
-        
-    # Set APN 
     def set_APN(self):
-        '''
-            to dynamically assign IP use AT+CGACT
-        '''
         apn = input("Enter your APN: ") 
         ip = input("Enter your IP: ") 
-        try:
-            modem.write(b'AT+CGDCONT=1,"' + apn.encode() + b'","' + ip.encode() + b'"\r\n')
-        finally:
-            response = modem.read(byte)
-            print("Received AT+CGDCONT=1 response:\n",response.decode())
-    
-    
-    def check_APN(self):
-        self.at_command(AT_COMMANDS['check_APN'], AT_COMMANDS['check_APN'])
-    
-    
-    # Displays current settings
+        self.at_command(f'AT+CGDCONT=1,"IP","{apn}","{ip}"', 'Set APN')
+        self.at_command('AT+CGDCONT?', 'Check APN')
+
     def display_current(self):
-        self.at_command(AT_COMMANDS['display'], AT_COMMANDS['display'])
+        self.at_command(BASE['display'], 'Display current settings')
 
-
-    # Check the current settings
     def check_settings(self):
-        command = 'AT+QCFG="usbnet"'
-        try:
-            modem.write(b'f' + command.encode() + b'\r')
-        finally:
-            response = modem.read(byte).decode()
-            if '0' in response:
-                modem.write(b'f' + 'AT+QCFG="usbnet",0'.encode() + b'\r')
-            print("Received rAT+QCFG='usbnet', 0 response:\n", response.decode())
+        response = self.at_command('AT+QCFG="usbnet"', 'Check USBNET settings')
+        if '0' in response:
+            self.at_command('AT+QCFG="usbnet",0', 'Set USBNET')
 
-
-    # Set UE functionality and reset 
-    def ue_reboot(self, com, byte):
-        command = 'AT+CFUN'
-        try:
-            modem.write(b'f' + command.encode() + b'\r')
-        finally:
-            response = modem.read(byte)
-            if 'ERROR' in response:
-                print('An error occured\n')
-                modem.close()
-            print("Received AT_CFUN response:\n", response.decode())
+    def ue_reboot(self):
+        response = self.at_command(BASE['ue_reboot'], 'UE Reboot')
+        if 'ERROR' in response:
+            print('An error occurred during UE Reboot')
+            self.modem.close()
 
 # HTTP
 class HTTP:
@@ -84,174 +46,146 @@ class HTTP:
     
     # HTTP settings
     def config(self):
-        answer = input("Would you like to configure settings ? (Y/N): ")
-        
-        if answer == 'Y':
-            contexID = input("contextID: ")
-            self.con.at_command("AT+QHTTPCFG=\"contextid\",\"{}\"".format(contexID), 'AT+QHTTPCFG=contextID')
-            
-            question = input("Would you like to continue ? (Y/N): ")
-            if question == 'Y':
-                request_header = input("request_header: ")
-                self.con.at_command("AT+QHTTPCFG=\"requestheader\",\"{}\"".format(request_header), 'AT+QHTTPCFG=requestheader')
-                response_header = input("response_header: ")
-                self.con.at_command("AT+QHTTPCFG=\"responseheader\",\"{}\"".format(response_header), 'AT+QHTTPCFG=responseheader')
-                sslctxID = input("sslctxID: ")
-                self.con.at_command("AT+QHTTPCFG=\"sslctxid\",\"{}\"".format(sslctxID), 'AT+QHTTPCFG=sslctxid')
-                content_type = input("content_type: ")
-                self.con.at_command("AT+QHTTPCFG=\"contenttype\",\"{}\"".format(content_type), 'AT+QHTTPCFG=contenttype')
-                auto_outrsp = input("auto_outrsp: ")
-                self.con.at_command("AT+QHTTPCFG=\"rspout/auto\",\"{}\"".format(auto_outrsp), 'AT+QHTTPCFG=rspout/auto')
-                closedind = input("closedind: ")
-                self.con.at_command("AT+QHTTPCFG=\"closed/ind\",\"{}\"".format(closedind), 'AT+QHTTPCFG=closed/ind')
-                window_size = input("window_size: ")
-                self.con.at_command("AT+QHTTPCFG=\"windowsize\",\"{}\"".format(window_size), 'AT+QHTTPCFG=windowsize')
-                close_wait_time = input("close_wait_time: ")
-                self.con.at_command("AT+QHTTPCFG=\"closewaittime\",\"{}\"".format(close_wait_time), 'AT+QHTTPCFG=closewaittime')
-                username = input("username: ")
-                password = input("password: ")
-                self.con.at_command("AT+QHTTPCFG=\"auth\",\"%s\":\"%s\"".format(username, password), 'AT+QHTTPCFG=auth')
-                custom_value = input("custom_value: ")
-                self.con.at_command("AT+QHTTPCFG=\"custom_header\",\"{}\"".format(custom_value), 'AT+QHTTPCFG=custom_header')
-            else:
-                print("Default")
-            
-        if answer == 'N':
-            self.con.at_command(HTTP_AT_COMMANDS['settings'], HTTP_AT_COMMANDS['settings'])
+        self.con.at_command('AT+QHTTPCFG="contextid",1', 'Context ID Configuration')
+        self.con.at_command('AT+QHTTPCFG="responseheader",1', 'Response Header Configuration')        
+        answer = input("Would you like to configure more settings? (Y/N): ")
+        if answer.upper() == 'Y':
+            self.QHTTPCFG_settings()
         else:
-            self.con.at_command(HTTP_AT_COMMANDS['settings'], HTTP_AT_COMMANDS['settings'])
-    
-    time.sleep(5)
+            self.con.at_command('AT+QHTTPCFG?', 'HTTP Settings')
+
+    def QHTTPCFG_settings(self):
+        request_header = input("request_header: ")
+        self.con.at_command("AT+QHTTPCFG=\"requestheader\",\"{}\"".format(request_header), 'AT+QHTTPCFG=requestheader')
+        sslctxID = input("sslctxID: ")
+        self.con.at_command("AT+QHTTPCFG=\"sslctxid\",\"{}\"".format(sslctxID), 'AT+QHTTPCFG=sslctxid')
+        content_type = input("content_type: ")
+        self.con.at_command("AT+QHTTPCFG=\"contenttype\",\"{}\"".format(content_type), 'AT+QHTTPCFG=contenttype')
+        auto_outrsp = input("auto_outrsp: ")
+        self.con.at_command("AT+QHTTPCFG=\"rspout/auto\",\"{}\"".format(auto_outrsp), 'AT+QHTTPCFG=rspout/auto')
+        closedind = input("closedind: ")
+        self.con.at_command("AT+QHTTPCFG=\"closed/ind\",\"{}\"".format(closedind), 'AT+QHTTPCFG=closed/ind')
+        window_size = input("window_size: ")
+        self.con.at_command("AT+QHTTPCFG=\"windowsize\",\"{}\"".format(window_size), 'AT+QHTTPCFG=windowsize')
+        close_wait_time = input("close_wait_time: ")
+        self.con.at_command("AT+QHTTPCFG=\"closewaittime\",\"{}\"".format(close_wait_time), 'AT+QHTTPCFG=closewaittime')
+        username = input("username: ")
+        password = input("password: ")
+        self.con.at_command("AT+QHTTPCFG=\"auth\",\"%s\":\"%s\"".format(username, password), 'AT+QHTTPCFG=auth')
+        custom_value = input("custom_value: ")
+        self.con.at_command("AT+QHTTPCFG=\"custom_header\",\"{}\"".format(custom_value), 'AT+QHTTPCFG=custom_header')
+        
     def set_PDP(self):
-        response = (self.con.at_command(PDP_AT_COMMANDS['querry_PDP'], PDP_AT_COMMANDS['querry_PDP'])).decode()
-        if 'OK' in response:
-            try:
-                apn = input("Enter your APN: ")
-                modem.write(b'AT+QICSGP=1, 1, "' + apn.encode() + b'","", "", 1\r\n')
-            finally:
-                response = modem.read(byte)
-                print("Received AT+QICSGP=1 response:\n", response.decode())
-                self.con.at_command(PDP_AT_COMMANDS['activate_PDP'], PDP_AT_COMMANDS['activate_PDP'])
-                self.con.at_command(PDP_AT_COMMANDS['check_status'], PDP_AT_COMMANDS['check_status'])
-    
-    
+        apn = input("Enter APN: ")
+        self.con.at_command(f'AT+QICSGP=1,1,"{apn}","","",1', 'Set APN')
+        self.con.at_command(BASE['querry_PDP'], 'Querry PDP Context')
+        id = input("Enter PDP context ID: ")
+        self.con.at_command(f'"{BASE['querry_PDP']}""{id}"', 'Activate PDP Context')
+
     def connect(self):
-        self.con.at_command(HTTP_AT_COMMANDS['check_url'], HTTP_AT_COMMANDS['check_url'])
-        self.con.at_command(HTTP_AT_COMMANDS['connect'], HTTP_AT_COMMANDS['connect'])  
-        self.con.at_command(HTTP_AT_COMMANDS['webhook'], HTTP_AT_COMMANDS['webhook'])
+        time.sleep(10)
+        self.con.at_command(f'AT+QHTTPURL={len(HTTP['url'])},80', 'Set URL')
+        time.sleep(10)
+        self.con.at_command(HTTP['url'], 'URL')
+        time.sleep(30)
+        self.con.at_command(HTTP['check_url'], 'Check URL status')
+        time.sleep(10)
         
     def http_get(self):
-        self.con.at_command(HTTP_AT_COMMANDS['check_get'], HTTP_AT_COMMANDS['check_get'])
-        self.con.at_command(HTTP_AT_COMMANDS['get_request'], HTTP_AT_COMMANDS['get_request'])
+        self.con.at_command(HTTP['get_request'], 'HTTP GET Request')
+        time.sleep(30)
+        
+    def http_read(self):
+        self.con.at_command(HTTP['read'], 'Read HTTP Response')
+        time.sleep(10)
         
     def http_post(self):
-        self.con.at_command(HTTP_AT_COMMANDS['check_post'], HTTP_AT_COMMANDS['check_post'])
-        self.con.at_command(HTTP_AT_COMMANDS['post_request'], HTTP_AT_COMMANDS['post_request'])
+        self.con.at_command(HTTP['post_request'], 'HTTP POST Request')
+        self.con.at_command(HTTP['message'], 'Message')
 
     def http_stop(self):
-        self.con.at_command(HTTP_AT_COMMANDS['cancel'], HTTP_AT_COMMANDS['cancel'])
+        self.con.at_command(HTTP['cancel'], 'Cancel')
         
     def close_connection(self):
-        self.con.at_command(HTTP_AT_COMMANDS['end'], HTTP_AT_COMMANDS['end'])
+        self.con.at_command(HTTP['end'], 'End the connection')
         
 
 # MQTT
 class MQTT:
     con = Connection()
-    
-    def config(self):
-        self.con.at_command(MQTT_AT_COMMANDS['settings'], MQTT_AT_COMMANDS['settings'])  
-    
+       
     def connect(self):
-        self.con.at_command(MQTT_AT_COMMANDS['set'], MQTT_AT_COMMANDS['set'])
+        self.con.at_command(MQTT['set'], MQTT['set'])
         time.sleep(5)
-        self.con.at_command(MQTT_AT_COMMANDS['open_net'], MQTT_AT_COMMANDS['open_net'])
+        self.con.at_command(MQTT['open_net'], MQTT['open_net'])
         time.sleep(5)
-        self.con.at_command(MQTT_AT_COMMANDS['is_open'], MQTT_AT_COMMANDS['is_open'])
+        self.con.at_command(MQTT['is_open'], MQTT['is_open'])
         time.sleep(5)
-        self.con.at_command(MQTT_AT_COMMANDS['connect'], MQTT_AT_COMMANDS['connect']) 
+        self.con.at_command(MQTT['connect'], MQTT['connect']) 
     
     def subscribe(self):
         time.sleep(5)
-        self.con.at_command(MQTT_AT_COMMANDS['sub1'], MQTT_AT_COMMANDS['sub1'])
+        self.con.at_command(MQTT['sub1'], MQTT['sub1'])
         time.sleep(5)
-        self.con.at_command(MQTT_AT_COMMANDS['sub2'], MQTT_AT_COMMANDS['sub2'])
+        self.con.at_command(MQTT['sub2'], MQTT['sub2'])
         
-    
     def publish_message(self):
-        self.con.at_command(MQTT_AT_COMMANDS['publish'], MQTT_AT_COMMANDS['publish']) 
+        self.con.at_command(MQTT['publish'], MQTT['publish']) 
         
     
 if __name__ == "__main__":
-    
-    modem = serial.Serial('/dev/ttyUSB2', 115200, timeout=5)
-    byte = 256
-    http_url = "https://webhook.site/83abfba6-e208-43d9-8cd0-fe5bd2c4a792"
+    modem = serial.Serial('/dev/ttyUSB2', 115200, timeout=20)
+    byte = 1024
 
-    AT_COMMANDS = {
-        'base1': 'AT+CPIN?',
-        'base2': 'AT+CREG?',
-        'base3': 'AT+CGREG?',
-        'check_APN': 'AT+CGDCONT?',
-        'PDP_check': 'AT+CGACT=?',
-        'PDP_set': 'AT+CGACT=1,1',
-        'IP_check': 'AT+CGPADDR?',
-        'classic': 'AT+QCFG',
+        BASE = {
+        'sim': 'AT+CPIN?',
+        'network': 'AT+CREG?',
+        'gprs': 'AT+CGREG?',
         'display': 'AT+V',
-        'ue_reboot': 'AT+CFUN=1',
+        'ue_reboot': 'AT+CFUN=1,1',
     }
 
-    PDP_AT_COMMANDS = {
-        'querry_PDP': 'AT+QIACT?', # Query the state of PDP context
-        'activate_PDP': 'AT+QIACT=1', # Activate PDP
-        'check_status': 'AT+QICSGP=1', 
-    }
-    
-    HTTP_AT_COMMANDS = {
-        'settings': 'AT+QHTTPCFG=?', # Configures parameters for HTTP(S) server
-        'webhook': 'AT+QHTTPURL=57,80',
+    HTTP = {
+        'querry_PDP': 'AT+QIACT?',
+        'activate': 'AT+QIACT=',
+        'deactivate': 'AT+QIDEACT=',
+        'url': 'https://webhook.site/3d58bfc7-6c53-4092-8ff8-11941f1f6753',
         'check_url': 'AT+QHTTPURL?',
         'get_request': 'AT+QHTTPGET=80',
-        'check_get': 'AT+QHTTPGET?',
         'read':'AT+QHTTPREAD=80',
-        'post_request': 'AT+QHTTPPOST=20,80,100', #AT+QHTTPPOST=10,50
-        'check_post': 'AT+QHTTPPOST?',
+        'post_request': 'AT+QHTTPPOST=10,50',
+        'message': 'hello http',
         'cancel': 'AT+QHTTPSTOP',
-        'end': 'AT+QICLOSE=1',
+        'end': 'AT+QICLOSE=1',    
     }
     
-    MQTT_AT_COMMANDS = {
-        'settings':'AT+QMTCFG=?', # Configure optional parameters of MQTT
+    MQTT = {
         'set': 'AT+QMTCFG="recv/mode",1,0,1',
         'open_net': 'AT+QMTOPEN=0,"broker.hivemq.com",1883', # Open a network for MQTT client id, hostname, port
         'is_open': 'AT+QMTOPEN?', # Check status 
-        'connect': 'AT+QMTCONN=0,"client/1"',
+        'connect': 'AT+QMTCONN=0,"client/1"', # clientID
         'sub1': 'AT+QMTSUB=0,1,"topic/example",2', # clientID, messageID, topic
         'sub2': 'AT+QMTSUB=0,1,"topic/pub",0', # clientID, messageID, topic
         'publish': 'AT+QMTPUBEX=0,0,0,0,"topic/pub",30', # clientID, messageID, qos
         'read': 'AT+QMTRECV=0', # clientID
-        'close_net': 'AT+QMTCLOSE=0',
+        'close_net': 'AT+QMTCLOSE=0', # clientID
         'disconnect': 'AT+QMTDISC=0', # Disconnect a client
         'unsubscribe': 'AT+QMTUNS=0,1,"topic/example"', # cleintID, messageID, topic      
     }
-    
-    connected = Connection()
-    #connected.check_base()
-    #connected.check_PDP()
-    #connected.check_IP()
-    #connected.set_APN()
-    
-    #http = HTTP()
-    #http.config()
-    #http.set_PDP()
-    #http.connect()
-    #http.http_get()
-    #http.http_post()
-        
-    mqtt = MQTT()
-    #mqtt.config()
-    mqtt.connect()
-    #mqtt.subscribe()
-    #mqtt.publish_message()
+
+    # Base connection
+    connect = Connection()
+    connect.check_base()
+    connect.set_APN()
+
+    # HTTP connection
+    http = HTTP()
+    http.config()
+    http.set()
+    http.connect()
+    http.http_get()
+
+    # MQTT connection
+    #mqtt = MQTT()
     
     modem.close()
