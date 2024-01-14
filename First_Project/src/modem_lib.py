@@ -78,36 +78,36 @@ class HTTP:
     def set_PDP(self):
         apn = input("Enter APN: ")
         self.con.at_command(f'AT+QICSGP=1,1,"{apn}","","",1', 'Set APN')
-        self.con.at_command(BASE['querry_PDP'], 'Querry PDP Context')
+        self.con.at_command(HTTP_AT['querry_PDP'], 'Querry PDP Context')
         id = input("Enter PDP context ID: ")
-        self.con.at_command(f'"{BASE['querry_PDP']}""{id}"', 'Activate PDP Context')
+        self.con.at_command(f'"{HTTP_AT["activate"]}""{id}"', 'Activate PDP Context')
 
     def connect(self):
         time.sleep(10)
-        self.con.at_command(f'AT+QHTTPURL={len(HTTP['url'])},80', 'Set URL')
+        self.con.at_command(f'AT+QHTTPURL={len(HTTP_AT["url"])},80', 'Set URL')
         time.sleep(10)
-        self.con.at_command(HTTP['url'], 'URL')
+        self.con.at_command(HTTP_AT['url'], 'URL')
         time.sleep(30)
-        self.con.at_command(HTTP['check_url'], 'Check URL status')
+        self.con.at_command(HTTP_AT['check_url'], 'Check URL status')
         time.sleep(10)
         
     def http_get(self):
-        self.con.at_command(HTTP['get_request'], 'HTTP GET Request')
+        self.con.at_command(HTTP_AT['get_request'], 'HTTP GET Request')
         time.sleep(30)
         
     def http_read(self):
-        self.con.at_command(HTTP['read'], 'Read HTTP Response')
+        self.con.at_command(HTTP_AT['read'], 'Read HTTP Response')
         time.sleep(10)
         
     def http_post(self):
-        self.con.at_command(HTTP['post_request'], 'HTTP POST Request')
-        self.con.at_command(HTTP['message'], 'Message')
+        self.con.at_command(HTTP_AT['post_request'], 'HTTP POST Request')
+        self.con.at_command(HTTP_AT['message'], 'Message')
 
     def http_stop(self):
-        self.con.at_command(HTTP['cancel'], 'Cancel')
+        self.con.at_command(HTTP_AT['cancel'], 'Cancel')
         
     def close_connection(self):
-        self.con.at_command(HTTP['end'], 'End the connection')
+        self.con.at_command(HTTP_AT['end'], 'End the connection')
         
 
 # MQTT
@@ -115,51 +115,51 @@ class MQTT:
     con = Connection()
        
     def connect(self):
-        self.con.at_command(MQTT['set'], MQTT['set'])
+        self.con.at_command(MQTT_AT['set'], 'Set mode')
         time.sleep(5)
-        self.con.at_command(MQTT['open_net'], MQTT['open_net'])
+        self.con.at_command(MQTT_AT['open_net'], 'Broker connection')
         time.sleep(5)
-        self.con.at_command(MQTT['is_open'], MQTT['is_open'])
+        self.con.at_command(MQTT_AT['is_open'], 'Check connection')
         time.sleep(5)
-        self.con.at_command(MQTT['connect'], MQTT['connect']) 
+        self.con.at_command(MQTT_AT['connect'], 'Connect to the client') 
     
     def subscribe(self):
         time.sleep(5)
-        self.con.at_command(MQTT['sub1'], MQTT['sub1'])
+        self.con.at_command(MQTT_AT['sub1'], 'Subscribe a topic')
         time.sleep(5)
-        self.con.at_command(MQTT['sub2'], MQTT['sub2'])
+        self.con.at_command(MQTT_AT['sub2'], 'Subscribe a topic')
         
     def publish_message(self):
-        self.con.at_command(MQTT['publish'], MQTT['publish']) 
+        self.con.at_command(MQTT_AT['publish'], 'Publish message to a topic') 
         
     
 if __name__ == "__main__":
     modem = serial.Serial('/dev/ttyUSB2', 115200, timeout=20)
     byte = 1024
 
-        BASE = {
+    BASE = {
         'sim': 'AT+CPIN?',
         'network': 'AT+CREG?',
         'gprs': 'AT+CGREG?',
         'display': 'AT+V',
-        'ue_reboot': 'AT+CFUN=1,1',
+        'ue_reboot': 'AT+CFUN=1,1'
     }
 
-    HTTP = {
+    HTTP_AT = {
         'querry_PDP': 'AT+QIACT?',
         'activate': 'AT+QIACT=',
         'deactivate': 'AT+QIDEACT=',
-        'url': 'https://webhook.site/3d58bfc7-6c53-4092-8ff8-11941f1f6753',
+        'url': 'https://webhook.site/...',
         'check_url': 'AT+QHTTPURL?',
         'get_request': 'AT+QHTTPGET=80',
         'read':'AT+QHTTPREAD=80',
         'post_request': 'AT+QHTTPPOST=10,50',
         'message': 'hello http',
         'cancel': 'AT+QHTTPSTOP',
-        'end': 'AT+QICLOSE=1',    
+        'end': 'AT+QICLOSE=1'  
     }
     
-    MQTT = {
+    MQTT_AT = {
         'set': 'AT+QMTCFG="recv/mode",1,0,1',
         'open_net': 'AT+QMTOPEN=0,"broker.hivemq.com",1883', # Open a network for MQTT client id, hostname, port
         'is_open': 'AT+QMTOPEN?', # Check status 
@@ -170,18 +170,18 @@ if __name__ == "__main__":
         'read': 'AT+QMTRECV=0', # clientID
         'close_net': 'AT+QMTCLOSE=0', # clientID
         'disconnect': 'AT+QMTDISC=0', # Disconnect a client
-        'unsubscribe': 'AT+QMTUNS=0,1,"topic/example"', # cleintID, messageID, topic      
-    }
+        'unsubscribe': 'AT+QMTUNS=0,1,"topic/example"' # cleintID, messageID, topic      
+    }   
 
     # Base connection
     connect = Connection()
-    connect.check_base()
-    connect.set_APN()
+    #connect.check_base()
+    #connect.set_APN()
 
     # HTTP connection
     http = HTTP()
-    http.config()
-    http.set()
+    #http.config()
+    #http.set_PDP()
     http.connect()
     http.http_get()
 
