@@ -6,17 +6,12 @@
 
 ## Overview
 
-Welcome to the Embedded Linux Project! This project aims to [brief description of the project]. [Add any other relevant introductory information about the project]
+Repository includes embedded linux project that can provide new functions and library setting to the embedded programming. All the codes inside this repository has written in Python programming language.
 
 ## Features
 
-- **Feature 1:** [Description of Feature 1]
-- **Feature 2:** [Description of Feature 2]
-- **Feature 3:** [Description of Feature 3]
+- **Project 1: AT Command Library** [AT Commands](!https://github.com/mnyilmaz/Embedded-Linux/blob/main/First_Project/src/modem_lib.py)
 
-## Getting Started
-
-Follow these steps to get the project up and running on your local machine.
 
 ### Prerequisites
 
