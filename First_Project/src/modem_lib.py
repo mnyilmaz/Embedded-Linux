@@ -19,6 +19,8 @@ class Connection:
         self.at_command(BASE['sim'], 'SIM status')
         self.at_command(BASE['network'], 'Network registration')
         self.at_command(BASE['gprs'], 'GPRS registration')
+        self.at_command(BASE['base'], 'Base status')
+        
     
     def set_APN(self):
         apn = input("Enter your APN: ") 
@@ -29,16 +31,11 @@ class Connection:
     def display_current(self):
         self.at_command(BASE['display'], 'Display current settings')
 
-    def check_settings(self):
+    def check_ppp_settings(self):
         response = self.at_command('AT+QCFG="usbnet"', 'Check USBNET settings')
-        if '0' in response:
+        if '0' not in response:
             self.at_command('AT+QCFG="usbnet",0', 'Set USBNET')
-
-    def ue_reboot(self):
-        response = self.at_command(BASE['ue_reboot'], 'UE Reboot')
-        if 'ERROR' in response:
-            print('An error occurred during UE Reboot')
-            self.modem.close()
+            self.at_command(BASE['ue_reboot'], 'UE Reboot')
 
 # HTTP
 class HTTP:
@@ -138,6 +135,7 @@ if __name__ == "__main__":
         'sim': 'AT+CPIN?',
         'network': 'AT+CREG?',
         'gprs': 'AT+CGREG?',
+        'base': 'AT+COPS?',
         'display': 'AT+V',
         'ue_reboot': 'AT+CFUN=1,1'
     }
@@ -177,10 +175,11 @@ if __name__ == "__main__":
 
     # HTTP connection
     http = HTTP()
-    http.config()
-    http.set_PDP()
-    http.connect()
-    http.http_get()
+    #http.config()
+    #http.set_PDP()
+    #http.connect()
+    #http.http_get()
+    http.http_read()
 
     # MQTT connection
     #mqtt = MQTT()
