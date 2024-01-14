@@ -7,9 +7,9 @@ class Connection:
     def at_command(self, at_command, explanation):
         try:
             modem.write((at_command + '\r').encode())
-            time.sleep(10)
+            time.sleep(5)
         finally:
-            time.sleep(10)
+            time.sleep(5)
             response = modem.read(byte)
             print(f"Received {explanation} response:\n{response.decode()}\n")
             return response
@@ -79,25 +79,22 @@ class HTTP:
         apn = input("Enter APN: ")
         self.con.at_command(f'AT+QICSGP=1,1,"{apn}","","",1', 'Set APN')
         self.con.at_command(HTTP_AT['querry_PDP'], 'Querry PDP Context')
-        id = input("Enter PDP context ID: ")
-        self.con.at_command(f'"{HTTP_AT["activate"]}""{id}"', 'Activate PDP Context')
+        self.con.at_command(HTTP_AT["activate"], 'Activate PDP Context')
 
     def connect(self):
-        time.sleep(10)
         self.con.at_command(f'AT+QHTTPURL={len(HTTP_AT["url"])},80', 'Set URL')
         time.sleep(10)
         self.con.at_command(HTTP_AT['url'], 'URL')
-        time.sleep(30)
+        time.sleep(5)
         self.con.at_command(HTTP_AT['check_url'], 'Check URL status')
-        time.sleep(10)
         
     def http_get(self):
+        time.sleep(20)
         self.con.at_command(HTTP_AT['get_request'], 'HTTP GET Request')
-        time.sleep(30)
         
     def http_read(self):
+        time.sleep(20)
         self.con.at_command(HTTP_AT['read'], 'Read HTTP Response')
-        time.sleep(10)
         
     def http_post(self):
         self.con.at_command(HTTP_AT['post_request'], 'HTTP POST Request')
@@ -134,7 +131,7 @@ class MQTT:
         
     
 if __name__ == "__main__":
-    modem = serial.Serial('/dev/ttyUSB2', 115200, timeout=20)
+    modem = serial.Serial('/dev/ttyUSB2', 115200, timeout=5)
     byte = 1024
 
     BASE = {
@@ -147,9 +144,9 @@ if __name__ == "__main__":
 
     HTTP_AT = {
         'querry_PDP': 'AT+QIACT?',
-        'activate': 'AT+QIACT=',
-        'deactivate': 'AT+QIDEACT=',
-        'url': 'https://webhook.site/...',
+        'activate': 'AT+QIACT=1',
+        'deactivate': 'AT+QIDEACT=1',
+        'url': 'https://webhook.site/3ef05d08-f223-4da5-b5d9-b9951baf8da3',
         'check_url': 'AT+QHTTPURL?',
         'get_request': 'AT+QHTTPGET=80',
         'read':'AT+QHTTPREAD=80',
@@ -175,13 +172,13 @@ if __name__ == "__main__":
 
     # Base connection
     connect = Connection()
-    #connect.check_base()
+    connect.check_base()
     #connect.set_APN()
 
     # HTTP connection
     http = HTTP()
-    #http.config()
-    #http.set_PDP()
+    http.config()
+    http.set_PDP()
     http.connect()
     http.http_get()
 
