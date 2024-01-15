@@ -7,9 +7,9 @@ class Connection:
     def at_command(self, at_command, explanation):
         try:
             modem.write((at_command + '\r').encode())
-            time.sleep(5)
+            #time.sleep(5)
         finally:
-            time.sleep(5)
+            #time.sleep(5)
             response = modem.read(byte)
             print(f"Received {explanation} response:\n{response.decode()}\n")
             return response
@@ -28,8 +28,6 @@ class Connection:
         self.at_command(f'AT+CGDCONT=1,"IP","{apn}","{ip}"', 'Set APN')
         self.at_command('AT+CGDCONT?', 'Check APN')
 
-    def display_current(self):
-        self.at_command(BASE['display'], 'Display current settings')
 
     def check_ppp_settings(self):
         response = self.at_command('AT+QCFG="usbnet"', 'Check USBNET settings')
@@ -110,25 +108,21 @@ class MQTT:
        
     def connect(self):
         self.con.at_command(MQTT_AT['set'], 'Set mode')
-        time.sleep(5)
         self.con.at_command(MQTT_AT['open_net'], 'Broker connection')
-        time.sleep(5)
-        self.con.at_command(MQTT_AT['is_open'], 'Check connection')
-        time.sleep(5)
         self.con.at_command(MQTT_AT['connect'], 'Connect to the client') 
     
     def subscribe(self):
-        time.sleep(5)
         self.con.at_command(MQTT_AT['sub1'], 'Subscribe a topic')
-        time.sleep(5)
         self.con.at_command(MQTT_AT['sub2'], 'Subscribe a topic')
         
     def publish_message(self):
-        self.con.at_command(MQTT_AT['publish'], 'Publish message to a topic') 
+        self.con.at_command(MQTT_AT['publish'], 'Publish message to a topic')
+        self.con.at_command(MQTT_AT['message'], 'Message')
+        self.con.at_command(MQTT_AT['read'], 'Receive')
         
     
 if __name__ == "__main__":
-    modem = serial.Serial('/dev/ttyUSB2', 115200, timeout=5)
+    modem = serial.Serial('/dev/ttyUSB3', 115200, timeout=5)
     byte = 1024
 
     BASE = {
@@ -136,7 +130,6 @@ if __name__ == "__main__":
         'network': 'AT+CREG?',
         'gprs': 'AT+CGREG?',
         'base': 'AT+COPS?',
-        'display': 'AT+V',
         'ue_reboot': 'AT+CFUN=1,1'
     }
 
@@ -144,7 +137,7 @@ if __name__ == "__main__":
         'querry_PDP': 'AT+QIACT?',
         'activate': 'AT+QIACT=1',
         'deactivate': 'AT+QIDEACT=1',
-        'url': 'https://webhook.site/3ef05d08-f223-4da5-b5d9-b9951baf8da3',
+        'url': 'https://webhook.site/',
         'check_url': 'AT+QHTTPURL?',
         'get_request': 'AT+QHTTPGET=80',
         'read':'AT+QHTTPREAD=80',
@@ -155,13 +148,14 @@ if __name__ == "__main__":
     }
     
     MQTT_AT = {
-        'set': 'AT+QMTCFG="recv/mode",1,0,1',
+        'set': 'AT+QMTCFG="recv/mode",0,0,1',
         'open_net': 'AT+QMTOPEN=0,"broker.hivemq.com",1883', # Open a network for MQTT client id, hostname, port
         'is_open': 'AT+QMTOPEN?', # Check status 
-        'connect': 'AT+QMTCONN=0,"client/1"', # clientID
+        'connect': 'AT+QMTCONN=0,"embedded"', # clientID
         'sub1': 'AT+QMTSUB=0,1,"topic/example",2', # clientID, messageID, topic
         'sub2': 'AT+QMTSUB=0,1,"topic/pub",0', # clientID, messageID, topic
         'publish': 'AT+QMTPUBEX=0,0,0,0,"topic/pub",30', # clientID, messageID, qos
+        'message': 'hello mqtt',
         'read': 'AT+QMTRECV=0', # clientID
         'close_net': 'AT+QMTCLOSE=0', # clientID
         'disconnect': 'AT+QMTDISC=0', # Disconnect a client
@@ -170,18 +164,22 @@ if __name__ == "__main__":
 
     # Base connection
     connect = Connection()
-    connect.check_base()
+    #connect.check_base()
     #connect.set_APN()
 
     # HTTP connection
-    http = HTTP()
+    #http = HTTP()
     #http.config()
     #http.set_PDP()
     #http.connect()
     #http.http_get()
-    http.http_read()
+    #http.http_read()
+    #http.http_post()
 
     # MQTT connection
-    #mqtt = MQTT()
+    mqtt = MQTT()
+    mqtt.connect()
+    #mqtt.subscribe()
+    mqtt.publish_message()
     
     modem.close()
