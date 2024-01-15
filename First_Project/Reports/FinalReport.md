@@ -1,5 +1,5 @@
 ### HTTP Results without Protocols
 
-![Screenshot from 2024-01-15 23-12-38](https://github.com/mnyilmaz/Embedded-Linux/assets/68549106/d984652e-f24a-49c1-aa4a-d4527516f687)
-![Screenshot from 2024-01-15 23-09-54](https://github.com/mnyilmaz/Embedded-Linux/assets/68549106/97061a24-3074-41fa-a944-ca72e4e1bc61)
-![Screenshot from 2024-01-15 23-17-03](https://github.com/mnyilmaz/Embedded-Linux/assets/68549106/c685fcdf-d8ac-4ba4-8414-7683cc417309)
+![Screenshot from 2024-01-15 23-12-38](https://github.com/mnyilmaz/Embedded-Linux/assets/68549106/ca415de2-0fe2-4535-b16d-9eaba0681d36)
+![Screenshot from 2024-01-15 23-09-54](https://github.com/mnyilmaz/Embedded-Linux/assets/68549106/2310c901-2b0c-413d-a7b1-c80e017ad136)
+![Screenshot from 2024-01-15 23-17-03](https://github.com/mnyilmaz/Embedded-Linux/assets/68549106/caa43b8b-a8b7-4165-98aa-214db8f60907)
