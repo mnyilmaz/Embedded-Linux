@@ -215,3 +215,17 @@ Following commands had been applied to get ECM connection.
      ```
      sudo qmicli -d /dev/cdc-wdm0 --wda-get-data-format
      ```
+  7. Connect mobile network
+     ```
+     sudo qmicli -p -d /dev/cdc-wdm0 --device-open-net='net-raw-ip|net-no-qos-header' --wds-start-            network="apn='super',ip-type=4" --client-no-release-cid
+     ```
+  8. Configure IP address
+     ```
+     sudo udhcpc -q -f -i wwan0
+     ```
+  9. Check connection
+     ```
+     ifconfig wwan0
+     ping -I wwan google.com -c 5
+     AT+QCFG="usbnet" # Returns 0
+     ```
