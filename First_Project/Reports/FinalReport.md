@@ -4,7 +4,7 @@ On the final week my responsibilities were:
 -   HTTP controls
 -   QMI, ECM and PPP comparison
 -   Additional feature implementation
--	  Final Report
+-   Final report
 
 and all these are studied well. Report related to these titles can be found below.
 
