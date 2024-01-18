@@ -127,7 +127,8 @@ Following commands had been applied to get ECM connection.
      ifconfig usb0
      ping -I usb0 google.com -c 5
      ```
-     ![ecm_connected_usb0_only](https://github.com/mnyilmaz/Embedded-Linux/assets/68549106/a59c42c5-c211-4df1-9dd85015e0679ba2)
+![ecm_connected_usb0_only](https://github.com/mnyilmaz/Embedded-Linux/assets/68549106/01bb8fdb-3de0-45cb-a387-4620029e9751)
+
 
      In here instead of wwan0 usb0 can be seen. That indicates USB connection.  
 
