@@ -105,14 +105,15 @@ Ethernet Control Model (ECM) is a protocol designed for establishing and managin
 This protocol typically allows a device (such as a Raspberry Pi) to connect to a network through a computer using USB.
 
 Following commands had been applied to get ECM connection.
-  1. List usb
-    ```
-    lsusb
-    ```
+  1. List USB
+     ```
+     lsusb
+     ```
+
   2. Set APN
      ```
-    AT+CGDCONT=1,"IPV4V6","super"
-    ```
+     AT+CGDCONT=1,"IPV4V6","super"
+     ```
   3. Configure module as 1, usually 0 is for PPP and QMI
      ```
      AT+QCFG="usbnet",1
