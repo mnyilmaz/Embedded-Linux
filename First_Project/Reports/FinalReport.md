@@ -7,11 +7,11 @@ On the final week my responsibilities were:
 -   Final report
 
 and all these are studied well. Report related to these titles can be found below.
-[ECM Installation](https://docs.sixfab.com/page/cellular-internet-connection-in-ecm-mode)
-[QMI Installation](https://docs.sixfab.com/page/setting-up-a-data-connection-over-qmi-interface-using-libqmi)
-[QMI Mode](https://forum.openwrt.org/t/quectel-ec25-4g-modem-qmi-mode/70092)
-[Timeout](https://community.sixfab.com/t/err-timeout-couldnt-get-response-on-telit-le910c4-eu/2121/2)
-[AT+CSQ](https://m2msupport.net/m2msupport/atcsq-signal-quality/)
+- [ECM Installation](https://docs.sixfab.com/page/cellular-internet-connection-in-ecm-mode)
+- [QMI Installation](https://docs.sixfab.com/page/setting-up-a-data-connection-over-qmi-interface-using-libqmi)
+- [QMI Mode](https://forum.openwrt.org/t/quectel-ec25-4g-modem-qmi-mode/70092)
+- [Timeout](https://community.sixfab.com/t/err-timeout-couldnt-get-response-on-telit-le910c4-eu/2121/2)
+- [AT+CSQ](https://m2msupport.net/m2msupport/atcsq-signal-quality/)
 
 ### Modem Configuration
 For a week connection was unstable. Responses from
