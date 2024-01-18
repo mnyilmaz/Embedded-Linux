@@ -126,10 +126,35 @@ Following commands had been applied to get ECM connection.
      ```
      ifconfig usb0
      ping -I usb0 google.com -c 5
+     AT+QCFG="usbnet" # Returns 1 
      ```
 ![ecm_connected_usb0_only](https://github.com/mnyilmaz/Embedded-Linux/assets/68549106/01bb8fdb-3de0-45cb-a387-4620029e9751)
 
+In here instead of wwan0 usb0 can be seen. That indicates USB connection.  
+After connection is set over the ECM protocol re-run the HTTP and MQTT class functions as given in below:
+```
+    # Base connection
+    connect = Connection()
+    connect.check_base()
+    #connect.set_APN()
 
-     In here instead of wwan0 usb0 can be seen. That indicates USB connection.  
+    # HTTP connection
+    http = HTTP()
+    http.config()
+    http.connect()
+    http.http_get()
+    http.http_read()
+    http.http_post()
+    http.close_connection()
+
+    # MQTT connection
+    mqtt = MQTT()
+    mqtt.connect()
+    mqtt.subscribe()
+    mqtt.publish_message()
+    mqtt.disconnect()
+```
+Result were OK! 
+> I've realized that responses were slightly faster than usual connection that modems own connection by own with wi-fi. Cellular connection over ECM printed out responses in a minute with included time delay both HTTP and MQTT.
 
 
