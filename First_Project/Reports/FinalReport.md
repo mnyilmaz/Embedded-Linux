@@ -171,8 +171,47 @@ To continue with QMI
      ```
      AT+QCFG="usbnet",0
      AT+QCFG="usbnet"   # Should return +QCFG: "usbnet",0
+     AT+CFUN=1,1
      ```
 
-## ECM (Ethernet Control Modem) Installation and Tests
-Ethernet Control Model (ECM) is a protocol designed for establishing and managing network connections via USB. 
-This protocol typically allows a device (such as a Raspberry Pi) to connect to a network through a computer using USB.
+
+## QMI (Qualcomm MSM Interface) Installation and Tests
+QMI, or Qualcomm MSM Interface, is a protocol developed by Qualcomm for communication with modems embedded in mobile devices. QMI is commonly used in cellular modems and modules to facilitate communication between the host processor (like an application processor in a smartphone or an embedded system) and the cellular modem.
+
+Following commands had been applied to get ECM connection.
+  1. List USB
+     ```
+     lsusb -t
+     ```
+  > Return: Port 3: Dev 7, If 4, Class=Vendor Specific Class, Driver=qmi_wwan, 480M
+
+  2. Check usbnet
+     ```
+     AT+QCFG="usbnet"  # Should return 0 if not set to zero and rebbot the module
+     ```
+  3. Install packages
+     ```
+     sudo apt update && sudo apt install libqmi-utils udhcpc
+     ```
+  4. Check if the module is ready
+     ```
+     sudo qmicli -d /dev/cdc-wdm0 --dms-get-operating-mode  # or -dms-get-operating-mode='online'
+     ```
+  > [/dev/cdc-wdm0] Operating mode retrieved:
+  >     Mode: 'online'
+  >     HW restricted: 'no'
+
+  5. Set wwan0 down to enable QMI and configure network interface
+     ```
+     sudo ip link set wwan0 down
+     ```
+     ```
+     echo 'Y' | sudo tee /sys/class/net/wwan0/qmi/raw_ip
+     ```
+     ```
+     sudo ip link set wwan0 up
+     ```
+  6. Confirm data format
+     ```
+     sudo qmicli -d /dev/cdc-wdm0 --wda-get-data-format
+     ```
