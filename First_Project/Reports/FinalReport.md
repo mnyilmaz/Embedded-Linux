@@ -132,28 +132,33 @@ Following commands had been applied to get ECM connection.
 
 In here instead of wwan0 usb0 can be seen. That indicates USB connection.  
 After connection is set over the ECM protocol re-run the HTTP and MQTT class functions as given in below:
-```
-    # Base connection
-    connect = Connection()
-    connect.check_base()
-    #connect.set_APN()
 
-    # HTTP connection
-    http = HTTP()
-    http.config()
-    http.connect()
-    http.http_get()
-    http.http_read()
-    http.http_post()
-    http.close_connection()
+  1. Base
+     ```
+     connect = Connection()
+     connect.check_base()
+     connect.set_APN()
+     ```
 
-    # MQTT connection
-    mqtt = MQTT()
-    mqtt.connect()
-    mqtt.subscribe()
-    mqtt.publish_message()
-    mqtt.disconnect()
-```
+  2. HTTP
+     ```
+     http = HTTP()
+     http.config()
+     http.connect()
+     http.http_get()
+     http.http_read()
+     http.http_post()
+     http.close_connection()
+     ```
+  3. MQTT
+     ```
+     mqtt = MQTT()
+     mqtt.connect()
+     mqtt.subscribe()
+     mqtt.publish_message()
+     mqtt.disconnect()
+    ```
+
 Result were OK! 
 > I've realized that responses were slightly faster than usual connection that modems own connection by own with wi-fi. Cellular connection over ECM printed out responses in a minute with included time delay both HTTP and MQTT.
 
