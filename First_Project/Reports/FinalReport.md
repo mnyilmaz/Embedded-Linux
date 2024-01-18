@@ -1,4 +1,4 @@
-### Final Report
+## Final Report
 On the final week my responsibilities were:
 -   MQTT controls
 -   HTTP controls
@@ -30,7 +30,7 @@ AT+CGACT=1,1
 ```
 with following configuration above, modem was able to re-connect to the network.
 
-### HTTP Results without Protocols
+## HTTP Results without Protocols
 After re-connect to the network library re-designed for the HTTP part in order to get more clean response.
 Also sleep times were re-arranged to get optimum responses.
 ```
@@ -75,7 +75,7 @@ After configurations on HTTP part of the library, results were as given in below
 
 HTTP part has ended for the main part.
 
-### MQTT Results without Protocols
+## MQTT Results without Protocols
 Last week connection had been made for a client, yet after connection errors subscribing and publishing was not
 available. While configuring connections MQTT part of the library has been updates as follows:
 ```
@@ -105,7 +105,7 @@ MQTT class.
 
 MQTT part has ended for the main part.
 
-### ECM (Ethernet Control Modem) Installation and Tests
+## ECM (Ethernet Control Modem) Installation and Tests
 Ethernet Control Model (ECM) is a protocol designed for establishing and managing network connections via USB. 
 This protocol typically allows a device (such as a Raspberry Pi) to connect to a network through a computer using USB.
 
@@ -167,4 +167,12 @@ After connection is set over the ECM protocol re-run the HTTP and MQTT class fun
 Result were OK! 
 > I've realized that responses were slightly faster than usual connection that modems own connection by own with wi-fi. Cellular connection over ECM printed out responses in a minute with included time delay both HTTP and MQTT.
 
+To continue with QMI
+     ```
+     AT+QCFG="usbnet",0
+     AT+QCFG="usbnet"   # Should return +QCFG: "usbnet",0
+     ```
 
+## ECM (Ethernet Control Modem) Installation and Tests
+Ethernet Control Model (ECM) is a protocol designed for establishing and managing network connections via USB. 
+This protocol typically allows a device (such as a Raspberry Pi) to connect to a network through a computer using USB.
