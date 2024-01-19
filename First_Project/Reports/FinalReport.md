@@ -229,3 +229,18 @@ Following commands had been applied to get ECM connection.
      ping -I wwan google.com -c 5
      AT+QCFG="usbnet" # Returns 0
      ```
+After connection is set over the QMI protocol re-run the HTTP and MQTT class functions.
+Result were OK! 
+> Responses were fair faster than ECM and network. Even sending more than one request did not effect the performance of the data transmission over cellular network.
+
+## PPP (Point to Point Protocol) Installation and Tests
+PPP, is a data link layer protocol commonly used to establish a direct connection between two networking nodes. It is widely used in connecting a computer (or a network of computers) to the Internet via a dial-up connection or as part of a Virtual Private Network (VPN). PPP is commonly used for establishing connections over serial links, such as traditional phone lines. It has been widely utilized for Internet connections, especially in the era of dial-up access. However, with the prevalence of broadband technologies like DSL and cable modems, PPP is less commonly used for Internet connectivity today.
+
+Earlier weeks PPP installation steps were given and has been made successfully. At this week after QMI I've re-installed PPP protocol and re-run the HTTP and MQTT class functions.
+Result were OK! 
+> According to ECM and QMI, PPP were slower than these two. Yet it is an old protocol, may effect its compability with modem.
+
+## Final Results of ECM-QMI-PPP Comparison
+PPP provided obviously slower connection according to the ECM and QMI. Less efficient in terms of speed compared to other modern protocols, especially when used over traditional dial-up connections. 
+
+ECM and QMI were nip and tuck at this point. Because their speed and cabaility depends on features they have. For example 4G affects QMI in a positive manner while USB2 drags down the ECM. For this applicaiton both in HTTP and MQTT within a minute (included sleep times) all the processes hav been written were accomplished.
