@@ -226,11 +226,13 @@ Following commands had been applied to get ECM connection.
   9. Check connection
      ```
      ifconfig wwan0
-     ping -I wwan google.com -c 5
+     ping -I wwan0 google.com -c 5
      AT+QCFG="usbnet" # Returns 0
      ```
-After connection is set over the QMI protocol re-run the HTTP and MQTT class functions.
+After connection is set over the QMI protocol re-run the HTTP and MQTT class functions. If you close the Pi follow the steps above again.
 Result were OK! 
+> HTTP 20 GET and POST request were requested with reduced sleep times. Result: 20/20
+> MQTT 20 Publish and Subscribe were requested. In normally there were no reduce time. Result: 20/20
 > Responses were fair faster than ECM and network. Even sending more than one request did not effect the performance of the data transmission over cellular network.
 
 ## PPP (Point to Point Protocol) Installation and Tests
