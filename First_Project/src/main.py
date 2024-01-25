@@ -39,7 +39,7 @@ def http_get(self):
  def http_post(self): 
     http.set_PDP()
     http.connect()
-    http.http_get()
+    http.http_post()
 
 def mqtt_sub(self):
     mqtt.connect()
