@@ -174,9 +174,9 @@ if __name__ == "__main__":
     connect = Connection()
 
     # HTTP connection
-    http = HTTP()
+    http = HTTP(apn, url, get_size, read_size, post_size, latency)
 
     # MQTT connection
-    mqtt = MQTT()
+    mqtt = MQTT(mode, broker, port, subscribe, client, qos, topic, publish, message_length)
     
     modem.close()
