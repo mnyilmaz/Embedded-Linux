@@ -22,14 +22,13 @@ class MQTT:
     
     def subscribe(self):
         self.con.at_command(f'AT+QMTSUB=0,"{self.qos}","{self.subscribe}","{self.topic}"', 'Subscribe a topic')
-        self.con.at_command('AT+QMTCLOSE=0', 'Unsubscribe a topic')
+        self.con.at_command(f'AT+QMTUNS=0,"{self.topic}","{self.subscribe}"', 'Unsubscribe a topic')
+        self.con.at_command('AT+QMTCLOSE=0', 'Close Net')
         
     def publish_message(self):
         self.con.at_command(f'AT+QMTPUBEX=0,0,0,0,"{self.publish}","{self.message_length}"', 'Publish message to a topic')
         message = input("Enter your message to the MQTT: ")
         self.con.at_command(message, 'Message')
         self.con.at_command('AT+QMTRECV=0', 'Received')
-
-    def destroyer_of_mqtt(self):
+        self.con.at_command('AT+QMTDISC=0', 'Disconnect a client from MQTT server')
         self.con.at_command('AT+QMTCLOSE=0', 'Close Net')
-        self.con.at_command('AT+QMTDISC=0', 'Close Net')
