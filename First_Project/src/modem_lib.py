@@ -95,17 +95,18 @@ class HTTP:
         self.con.at_command(f'AT+QHTTPGET="{self.get_size}"', 'HTTP GET Request')
         time.sleep(20)
         self.con.at_command(f'AT+QHTTPREAD="{self.read_size}"', 'Read HTTP Response')
-        
+        self.con.at_command('AT+QIDEACT=1', 'Deactivate PDP Context')
+                
     def http_post(self):
         self.con.at_command(f'AT+QHTTPPOST="{self.post_size}","{self.latency}"', 'HTTP POST Request')
         message = input("Enter your message to the HTTP: ")
         self.con.at_command(message, 'Message')
-
-    def destroyer_of_http(self):
         self.con.at_command('AT+QIDEACT=1', 'Deactivate PDP Context')
+        
+    def destroyer_of_http(self):
         self.con.at_command('AT+QHTTPSTOP', 'Cancel')
         self.con.at_command('AT+QICLOSE=1', 'End the connection')
-        
+
 
 # MQTT
 class MQTT:
@@ -139,7 +140,7 @@ class MQTT:
 
     def destroyer_of_mqtt(self):
         self.con.at_command('AT+QMTCLOSE=0', 'Close Net')
-        self.con.at_command('AT+QMTDISC=0', 'Close Net')
+        self.con.at_command('AT+QMTDISC=0', 'Disconnect')
         
     
 if __name__ == "__main__":
