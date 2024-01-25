@@ -13,32 +13,41 @@ class Connection:
             response = modem.read(byte)
             print(f"Received {explanation} response:\n{response.decode()}\n")
             return response
+
     
     # Check if base connection exists
     def check_base(self):
-        self.at_command(BASE['sim'], 'SIM status')
-        self.at_command(BASE['network'], 'Network registration')
-        self.at_command(BASE['gprs'], 'GPRS registration')
-        self.at_command(BASE['base'], 'Base status')
+        self.at_command('AT+CPIN?', 'SIM status')
+        self.at_command('AT+CREG?', 'Network registration')
+        self.at_command('AT+CGREG?', 'GPRS registration')
+        self.at_command('AT+COPS?', 'Base status')
         
     
     def set_APN(self):
-        apn = input("Enter your APN: ") 
         ip = input("Enter your IP: ") 
         self.at_command(f'AT+CGDCONT=1,"IP","{apn}","{ip}"', 'Set APN')
         self.at_command('AT+CGDCONT?', 'Check APN')
 
 
-    def check_ppp_settings(self):
+    def reboot_options(self):
         response = self.at_command('AT+QCFG="usbnet"', 'Check USBNET settings')
         if '0' not in response:
             self.at_command('AT+QCFG="usbnet",0', 'Set USBNET')
-            self.at_command(BASE['ue_reboot'], 'UE Reboot')
+            self.at_command('AT+CFUN=1,1', 'UE Reboot')
 
 # HTTP
 class HTTP:
     con = Connection()
-    
+
+    def __init__(self, apn, url, get_size, read_size, post_size, latency):
+        self.apn = apn
+        self.url = url
+        self.get_size = get_size
+        self.read_size = read_size
+        self.post_size = post_size
+        self.latency = latency
+        
+
     # HTTP settings
     def config(self):
         self.con.at_command('AT+QHTTPCFG="contextid",1', 'Context ID Configuration')
@@ -71,115 +80,105 @@ class HTTP:
         self.con.at_command("AT+QHTTPCFG=\"custom_header\",\"{}\"".format(custom_value), 'AT+QHTTPCFG=custom_header')
         
     def set_PDP(self):
-        apn = input("Enter APN: ")
-        self.con.at_command(f'AT+QICSGP=1,1,"{apn}","","",1', 'Set APN')
-        self.con.at_command(HTTP_AT['querry_PDP'], 'Querry PDP Context')
-        self.con.at_command(HTTP_AT["activate"], 'Activate PDP Context')
+        self.con.at_command(f'AT+QICSGP=1,1,"{self.apn}","","",1', 'Set APN')
+        self.con.at_command('AT+QIACT?', 'Querry PDP Context')
+        self.con.at_command('AT+QIACT=1', 'Activate PDP Context')
+        self.con.at_command('AT+QIDEACT=1', 'Deactivate PDP Context')
 
     def connect(self):
-        self.con.at_command(f'AT+QHTTPURL={len(HTTP_AT["url"])},80', 'Set URL')
+        self.con.at_command(f'AT+QHTTPURL={len(self.url)},80', 'Set URL pre-settings')
         time.sleep(10)
-        self.con.at_command(HTTP_AT['url'], 'URL')
+        self.con.at_command(self.url, 'Set URL')
         time.sleep(5)
-        self.con.at_command(HTTP_AT['check_url'], 'Check URL status')
+        self.con.at_command('AT+QHTTPURL?', 'Check URL status')
         
     def http_get(self):
         time.sleep(20)
-        self.con.at_command(HTTP_AT['get_request'], 'HTTP GET Request')
+        self.con.at_command(f'AT+QHTTPGET="{self.get_size}"', 'HTTP GET Request')
         
     def http_read(self):
         time.sleep(20)
-        self.con.at_command(HTTP_AT['read'], 'Read HTTP Response')
+        self.con.at_command(f'AT+QHTTPREAD="{self.read_size}"', 'Read HTTP Response')
         
     def http_post(self):
-        self.con.at_command(HTTP_AT['post_request'], 'HTTP POST Request')
-        self.con.at_command(HTTP_AT['message'], 'Message')
+        self.con.at_command(f'AT+QHTTPPOST="{self.post_size}","{self.latency}"', 'HTTP POST Request')
+        message = input("Enter your message to the HTTP: ")
+        self.con.at_command(message, 'Message')
 
-    def http_stop(self):
-        self.con.at_command(HTTP_AT['cancel'], 'Cancel')
-        
-    def close_connection(self):
-        self.con.at_command(HTTP_AT['end'], 'End the connection')
+    def destroyer_of_http(self):
+        self.con.at_command('AT+QHTTPSTOP', 'Cancel')
+        self.con.at_command('AT+QICLOSE=1', 'End the connection')
         
 
 # MQTT
 class MQTT:
     con = Connection()
-       
+
+    def __init__(self, mode, broker, port, subscribe, client, qos, topic, publish, message_length)
+        self.mode = mode
+        self.broker = broker
+        self.port = port
+        self.client = client
+        self.qos = qos
+        self.subscribe = subscribe
+        self.topic = topic
+        self.publish = publish
+        self.message_lenght = message_length
+        
     def connect(self):
-        self.con.at_command(MQTT_AT['set'], 'Set mode')
-        self.con.at_command(MQTT_AT['open_net'], 'Broker connection')
-        self.con.at_command(MQTT_AT['connect'], 'Connect to the client') 
+        self.con.at_command(f'AT+QMTCFG="{self.mode}",0,0,1', 'Set mode')
+        self.con.at_command(f'AT+QMTOPEN=0,"{self.broker}","{self.port}"', 'Broker connection')
+        self.con.at_command(f'AT+QMTCONN=0,"{self.client}"', 'Connect to the client') 
     
     def subscribe(self):
-        self.con.at_command(MQTT_AT['sub1'], 'Subscribe a topic')
-        self.con.at_command(MQTT_AT['sub2'], 'Subscribe a topic')
+        self.con.at_command(f'AT+QMTSUB=0,"{self.qos}","{self.subscribe}","{self.topic}"', 'Subscribe a topic')
+        self.con.at_command('AT+QMTCLOSE=0', 'Unsubscribe a topic')
         
     def publish_message(self):
-        self.con.at_command(MQTT_AT['publish'], 'Publish message to a topic')
-        self.con.at_command(MQTT_AT['message'], 'Message')
-        self.con.at_command(MQTT_AT['read'], 'Receive')
+        self.con.at_command(f'AT+QMTPUBEX=0,0,0,0,"{self.publish}","{self.message_length}"', 'Publish message to a topic')
+        message = input("Enter your message to the MQTT: ")
+        self.con.at_command(message, 'Message')
+        self.con.at_command('AT+QMTRECV=0', 'Received')
+
+    def destroyer_of_mqtt(self):
+        self.con.at_command('AT+QMTCLOSE=0', 'Close Net')
+        self.con.at_command('AT+QMTDISC=0', 'Close Net')
         
     
 if __name__ == "__main__":
-    modem = serial.Serial('/dev/ttyUSB3', 115200, timeout=5)
+    # Main configurations
+    baudrate = 115200
+    port = 'dev/ttyUSB3'
     byte = 1024
+    apn = 'super'
+    modem = serial.Serial(port, baudrate, timeout=5)
 
-    BASE = {
-        'sim': 'AT+CPIN?',
-        'network': 'AT+CREG?',
-        'gprs': 'AT+CGREG?',
-        'base': 'AT+COPS?',
-        'ue_reboot': 'AT+CFUN=1,1'
-    }
-
-    HTTP_AT = {
-        'querry_PDP': 'AT+QIACT?',
-        'activate': 'AT+QIACT=1',
-        'deactivate': 'AT+QIDEACT=1',
-        'url': 'https://webhook.site/',
-        'check_url': 'AT+QHTTPURL?',
-        'get_request': 'AT+QHTTPGET=80',
-        'read':'AT+QHTTPREAD=80',
-        'post_request': 'AT+QHTTPPOST=10,50',
-        'message': 'hello http',
-        'cancel': 'AT+QHTTPSTOP',
-        'end': 'AT+QICLOSE=1'  
-    }
+    # HTTP
+    url = 'https://webhook.site/'
+    get_size = 80
+    read_size = 80
+    post_size = 20
+    latency = 50
     
-    MQTT_AT = {
-        'set': 'AT+QMTCFG="recv/mode",0,0,1',
-        'open_net': 'AT+QMTOPEN=0,"broker.hivemq.com",1883', # Open a network for MQTT client id, hostname, port
-        'is_open': 'AT+QMTOPEN?', # Check status 
-        'connect': 'AT+QMTCONN=0,"embedded"', # clientID
-        'sub1': 'AT+QMTSUB=0,1,"topic/example",2', # clientID, messageID, topic
-        'sub2': 'AT+QMTSUB=0,1,"topic/pub",0', # clientID, messageID, topic
-        'publish': 'AT+QMTPUBEX=0,0,0,0,"topic/pub",30', # clientID, messageID, qos
-        'message': 'hello mqtt',
-        'read': 'AT+QMTRECV=0', # clientID
-        'close_net': 'AT+QMTCLOSE=0', # clientID
-        'disconnect': 'AT+QMTDISC=0', # Disconnect a client
-        'unsubscribe': 'AT+QMTUNS=0,1,"topic/example"' # cleintID, messageID, topic      
-    }   
+    
+    # MQTT
+    mode = "recv/mode"
+    broker = "broker.hivemq.com"
+    client_port = 1883
+    client = "embedded"
+    qos = 1
+    topic = 1
+    subscribe = "topic/sub"
+    publish = "topic/pub"
+    message_length = 80
 
     # Base connection
     connect = Connection()
-    #connect.check_base()
-    #connect.set_APN()
 
     # HTTP connection
-    #http = HTTP()
-    #http.config()
-    #http.set_PDP()
-    #http.connect()
-    #http.http_get()
-    #http.http_read()
-    #http.http_post()
+    http = HTTP()
 
     # MQTT connection
     mqtt = MQTT()
-    mqtt.connect()
-    #mqtt.subscribe()
-    mqtt.publish_message()
     
     modem.close()
