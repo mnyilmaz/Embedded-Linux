@@ -23,6 +23,10 @@ class Connection:
 
     def reboot_options(self):
         response = self.at_command('AT+QCFG="usbnet"', 'Check USBNET settings')
-        if '0' not in response:
-            self.at_command('AT+QCFG="usbnet",0', 'Set USBNET')
+        select = input("Want to change usbnet mode (Y/N) ?: ")
+        if select.upper() == 'Y':
+            mode = input("Selected mode (1/0): ")
+            self.at_command('AT+QCFG="usbnet","{mode}"', 'Set USBNET')
             self.at_command('AT+CFUN=1,1', 'UE Reboot')
+        else:
+            print("Default")
