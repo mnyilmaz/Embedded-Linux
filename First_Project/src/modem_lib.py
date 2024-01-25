@@ -22,8 +22,9 @@ class Connection:
         
     
     def set_APN(self):
+        apn = input("Enter your APN: ") 
         ip = input("Enter your IP: ") 
-        self.at_command(f'AT+CGDCONT=1,"IP","{apn}","{ip}"', 'Set APN')
+        self.at_command(f'AT+CGDCONT=1,"{ip}","{apn}"', 'Define PDP context')
         self.at_command('AT+CGDCONT?', 'Check APN')
 
 
