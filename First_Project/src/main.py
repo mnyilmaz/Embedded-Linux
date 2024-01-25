@@ -1,14 +1,14 @@
-import inputs as var
-import serial, time, base, http-lib, mqtt-lib 
+from inputs import *
+import serial, time, base, http_lib, mqtt_lib 
 
 # Base
 base = base.Connection()
 
 # HTTP
-http = http-lib.HTTP()
+http = http_lib.HTTP()
     
 # MQTT
-mqtt = mqtt-lib.MQTT()
+mqtt = mqtt_lib.MQTT()
 
 class Execute:
     def control_base(self):
@@ -16,11 +16,12 @@ class Execute:
     
     # HTTP Implementations
     def http_get(self):
+        http.config()
         http.set_PDP()
         http.connect()
         http.http_get()
         
-     def http_post(self): 
+    def http_post(self):
         http.set_PDP()
         http.connect()
         http.http_post()
@@ -35,7 +36,6 @@ class Execute:
         mqtt.publish()
         
 if __name__ == "__main__":
-    modem = serial.Serial(var.port, var.baudrate, timeout=5)
 
     exc = Execute()
     # Check
