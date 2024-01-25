@@ -1,5 +1,5 @@
-from base import Connection
 import inputs as var
+from base import Connection
 
 # MQTT
 class MQTT:
