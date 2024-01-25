@@ -1,5 +1,6 @@
-from base import Connection 
+import time
 import inputs as var
+from base import Connection 
 
 # HTTP
 class HTTP:
