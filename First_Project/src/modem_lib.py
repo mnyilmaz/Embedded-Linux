@@ -7,9 +7,7 @@ class Connection:
     def at_command(self, at_command, explanation):
         try:
             modem.write((at_command + '\r').encode())
-            #time.sleep(5)
         finally:
-            #time.sleep(5)
             response = modem.read(byte)
             print(f"Received {explanation} response:\n{response.decode()}\n")
             return response
@@ -159,7 +157,6 @@ if __name__ == "__main__":
     read_size = 80
     post_size = 20
     latency = 50
-    
     
     # MQTT
     mode = "recv/mode"
