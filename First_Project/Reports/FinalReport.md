@@ -293,6 +293,7 @@ def.mqtt_sub(self)
 def.mqtt_pub(self)
 ```
 All processes had been organized as in documentations. Only require the call from the main.
+I've also added User Guidline to run the project properly.
 
 ## Final Review of the Project
 Througout 6 weeks of project timeline scope, I have learned basics about cellular connection and communication. Step by step; HTTP and MQTT protocols reviewed and tested, AT commands were tested and documentations have been read, related to that knowledge a library based on Python programming language has been formed, tests over PPP, QMI and ECM has been accomplished. All these theoretical and practical applications bringed in a different view on communication approach. My earlier applications were related on basic requests via Python requests library, yet with AT commands and over modem communicaiton imporved better my problem solving techniques and approaches. While establishing protocols and connections lots of errors have been encountered. Getting help from each other, shuffling forum pages. Eventually, with up's and down's project completed within the scope of desired outcomes.
