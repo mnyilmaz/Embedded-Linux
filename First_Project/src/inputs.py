@@ -3,7 +3,6 @@
     port = 'dev/ttyUSB3'
     byte = 1024
     apn = 'super'
-    modem = serial.Serial(port, baudrate, timeout=5)
 
     # HTTP
     url = 'https://webhook.site/'
