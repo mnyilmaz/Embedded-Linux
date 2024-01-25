@@ -21,7 +21,7 @@ class Connection:
         self.at_command('AT+COPS?', 'Base status')
         
     
-    def set_APN(self):
+    def define_PDP_context(self):
         apn = input("Enter your APN: ") 
         ip = input("Enter your IP: ") 
         self.at_command(f'AT+CGDCONT=1,"{ip}","{apn}"', 'Define PDP context')
