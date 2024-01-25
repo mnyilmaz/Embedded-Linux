@@ -25,7 +25,7 @@ class MQTT:
         self.con.at_command(f'AT+QMTUNS=0,"{self.topic}","{self.subscribe}"', 'Unsubscribe a topic')
         self.con.at_command('AT+QMTCLOSE=0', 'Close Net')
         
-    def publish_message(self):
+    def publish(self):
         self.con.at_command(f'AT+QMTPUBEX=0,0,0,0,"{self.publish}","{self.message_length}"', 'Publish message to a topic')
         message = input("Enter your message to the MQTT: ")
         self.con.at_command(message, 'Message')
