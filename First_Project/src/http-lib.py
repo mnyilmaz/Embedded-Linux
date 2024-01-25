@@ -1,16 +1,9 @@
 from base import Connection 
+import inputs as var
 
 # HTTP
 class HTTP:
     con = Connection()
-
-    def __init__(self, apn, url, get_size, read_size, post_size, latency):
-        self.apn = apn
-        self.url = url
-        self.get_size = get_size
-        self.read_size = read_size
-        self.post_size = post_size
-        self.latency = latency
 
     # HTTP settings
     def config(self):
@@ -44,26 +37,26 @@ class HTTP:
         self.con.at_command(f'AT+QHTTPCFG="custom_header","{custom_header}"', 'AT+QHTTPCFG=custom_header')
         
     def set_PDP(self):
-        self.con.at_command(f'AT+QICSGP=1,1,"{self.apn}","","",1', 'Set APN')
+        self.con.at_command(f'AT+QICSGP=1,1,"{var.apn}","","",1', 'Set APN')
         self.con.at_command('AT+QIACT?', 'Querry PDP Context')
         self.con.at_command('AT+QIACT=1', 'Activate PDP Context')
 
     def connect(self):
-        self.con.at_command(f'AT+QHTTPURL={len(self.url)},80', 'Set URL pre-settings')
+        self.con.at_command(f'AT+QHTTPURL={len(var.url)},80', 'Set URL pre-settings')
         time.sleep(10)
-        self.con.at_command(self.url, 'Set URL')
+        self.con.at_command(var.url, 'Set URL')
         time.sleep(5)
         self.con.at_command('AT+QHTTPURL?', 'Check URL status')
         
     def http_get(self):
         time.sleep(20)
-        self.con.at_command(f'AT+QHTTPGET="{self.get_size}"', 'HTTP GET Request')
+        self.con.at_command(f'AT+QHTTPGET="{var.get_size}"', 'HTTP GET Request')
         time.sleep(20)
-        self.con.at_command(f'AT+QHTTPREAD="{self.read_size}"', 'Read HTTP Response')
+        self.con.at_command(f'AT+QHTTPREAD="{var.read_size}"', 'Read HTTP Response')
         self.con.at_command('AT+QIDEACT=1', 'Deactivate PDP Context')
                 
     def http_post(self):
-        self.con.at_command(f'AT+QHTTPPOST="{self.post_size}","{self.latency}"', 'HTTP POST Request')
+        self.con.at_command(f'AT+QHTTPPOST="{var.post_size}","{var.latency}"', 'HTTP POST Request')
         message = input("Enter your message to the HTTP: ")
         self.con.at_command(message, 'Message')
         self.con.at_command('AT+QIDEACT=1', 'Deactivate PDP Context')
