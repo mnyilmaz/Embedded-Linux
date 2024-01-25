@@ -149,7 +149,7 @@ if __name__ == "__main__":
     # MQTT
     exc.mqtt_pub()
 
-	# Close the modem connection
+    # Close the modem connection
     modem.close()
 ```
 
