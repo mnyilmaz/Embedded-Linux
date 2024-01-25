@@ -247,5 +247,64 @@ PPP provided obviously slower connection according to the ECM and QMI. Less effi
 
 ECM and QMI were nip and tuck at this point. Because their speed and cabaility depends on features they have. For example 4G affects QMI in a positive manner while USB2 drags down the ECM. For this applicaiton both in HTTP and MQTT within a minute (included sleep times) all the processes hav been written were accomplished.
 
+## Final Week Configurations
+As all the tasks accomplished, on my final week input variables, HTTP, MQTT and Base classes have been seperated from modem_lib.py file as:
+    1. base.py
+    2. http-lib.py
+    3. mqtt-lib.py
+    4. main.py
+    5. inputs.py
+
+#### base.py
+Includes:
+
+```
+def check_base(self)
+def define_PDP_context(self)
+def reboot_options(self)
+```
+
+functions. BASE dictionary had been removed in order to optimize the code. 
+
+#### http-lib.py
+Includes:
+
+```
+class HTTP:
+    def config(self)
+    def set_PDP(self)
+    def connect(self)
+    def http_get(self)
+    def http_post(self)
+    def destroyer_of_http(self)
+```
+
+functions. HTTP dictionary had been removed in order to optimize the code. After get and post processes PDP context deactivated related to documentation.
+
+#### mqtt-lib.py
+Includes:
+
+```
+class MQTT:
+    def connect(self)
+    def subscribe(self)
+    def publish(self)
+```
+
+functions. MQTT dictionary had been removed in order to optimize the code. After subscribe process unsubscribed from the topic and closed the net. Same steps had been followed at publish process.
+
+#### main.py
+Includes:
+
+```
+def control_base(self)
+def http_get(self)
+def http_post(self)
+def.mqtt_sub(self)
+def.mqtt_pub(self)
+```
+
+functions and main. All processes had been organized as in documentations. Only require the call from the main.
+
 ## Final Review of the Project
 Througout 6 weeks of project timeline scope, I have learned basics about cellular connection and communication. Step by step; HTTP and MQTT protocols reviewed and tested, AT commands were tested and documentations have been read, related to that knowledge a library based on Python programming language has been formed, tests over PPP, QMI and ECM has been accomplished. All these theoretical and practical applications bringed in a different view on communication approach. My earlier applications were related on basic requests via Python requests library, yet with AT commands and over modem communicaiton imporved better my problem solving techniques and approaches. While establishing protocols and connections lots of errors have been encountered. Getting help from each other, shuffling forum pages. Eventually, with up's and down's project completed within the scope of desired outcomes.
