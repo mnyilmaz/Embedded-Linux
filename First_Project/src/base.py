@@ -7,30 +7,29 @@ class Connection:
     def at_command(self, at_command, explanation):
         try:
             modem.write((at_command + '\r').encode())
-            #time.sleep(5)
         finally:
-            #time.sleep(5)
             response = modem.read(byte)
             print(f"Received {explanation} response:\n{response.decode()}\n")
             return response
+
     
     # Check if base connection exists
     def check_base(self):
-        self.at_command(BASE['sim'], 'SIM status')
-        self.at_command(BASE['network'], 'Network registration')
-        self.at_command(BASE['gprs'], 'GPRS registration')
-        self.at_command(BASE['base'], 'Base status')
+        self.at_command('AT+CPIN?', 'SIM status')
+        self.at_command('AT+CREG?', 'Network registration')
+        self.at_command('AT+CGREG?', 'GPRS registration')
+        self.at_command('AT+COPS?', 'Base status')
         
     
-    def set_APN(self):
+    def define_PDP_context(self):
         apn = input("Enter your APN: ") 
         ip = input("Enter your IP: ") 
-        self.at_command(f'AT+CGDCONT=1,"IP","{apn}","{ip}"', 'Set APN')
+        self.at_command(f'AT+CGDCONT=1,"{ip}","{apn}"', 'Define PDP context')
         self.at_command('AT+CGDCONT?', 'Check APN')
 
 
-    def check_ppp_settings(self):
+    def reboot_options(self):
         response = self.at_command('AT+QCFG="usbnet"', 'Check USBNET settings')
         if '0' not in response:
             self.at_command('AT+QCFG="usbnet",0', 'Set USBNET')
-            self.at_command(BASE['ue_reboot'], 'UE Reboot')
+            self.at_command('AT+CFUN=1,1', 'UE Reboot')
