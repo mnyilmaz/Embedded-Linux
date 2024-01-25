@@ -84,7 +84,7 @@ This project has to be done within 6 weeks. That requires a dynamic agile projec
 
  - [x] Complete request code
  - [x] Send HTTP GET and POST request
- - [] MQTT message sending
+ - [x] MQTT message sending
 
 
 ## Week 5
