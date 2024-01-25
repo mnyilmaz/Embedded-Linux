@@ -47,7 +47,6 @@ class HTTP:
         self.con.at_command(f'AT+QICSGP=1,1,"{self.apn}","","",1', 'Set APN')
         self.con.at_command('AT+QIACT?', 'Querry PDP Context')
         self.con.at_command('AT+QIACT=1', 'Activate PDP Context')
-        self.con.at_command('AT+QIDEACT=1', 'Deactivate PDP Context')
 
     def connect(self):
         self.con.at_command(f'AT+QHTTPURL={len(self.url)},80', 'Set URL pre-settings')
@@ -68,5 +67,6 @@ class HTTP:
         self.con.at_command(message, 'Message')
         
     def destroyer_of_http(self):
+        self.con.at_command('AT+QIDEACT=1', 'Deactivate PDP Context')
         self.con.at_command('AT+QHTTPSTOP', 'Cancel')
         self.con.at_command('AT+QICLOSE=1', 'End the connection')
