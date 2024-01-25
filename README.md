@@ -32,4 +32,7 @@ Repository includes embedded linux project that can provide new functions and li
 ### Usage
 
 ```bash
-$ python modem_lib.py
+$ python main.py
+```
+
+For more detailed information see **[User Guideline](https://github.com/mnyilmaz/Embedded-Linux/blob/main/First_Project/UserGuideline.md)**
