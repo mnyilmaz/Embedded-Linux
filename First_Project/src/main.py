@@ -1,3 +1,4 @@
+import inputs as var
 import serial, time, base, http-lib, mqtt-lib 
 
 # Base
@@ -33,6 +34,7 @@ def mqtt_pub(self):
     mqtt.publish()
     
 if __name__ == "__main__":
+    modem = serial.Serial(var.port, var.baudrate, timeout=5)
     # Check
     control_base()
 
