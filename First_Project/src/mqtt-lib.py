@@ -1,18 +1,35 @@
 from base import Connection
 
+# MQTT
 class MQTT:
     con = Connection()
-       
+
+    def __init__(self, mode, broker, port, subscribe, client, qos, topic, publish, message_length)
+        self.mode = mode
+        self.broker = broker
+        self.port = port
+        self.client = client
+        self.qos = qos
+        self.subscribe = subscribe
+        self.topic = topic
+        self.publish = publish
+        self.message_lenght = message_length
+        
     def connect(self):
-        self.con.at_command(MQTT_AT['set'], 'Set mode')
-        self.con.at_command(MQTT_AT['open_net'], 'Broker connection')
-        self.con.at_command(MQTT_AT['connect'], 'Connect to the client') 
+        self.con.at_command(f'AT+QMTCFG="{self.mode}",0,0,1', 'Set mode')
+        self.con.at_command(f'AT+QMTOPEN=0,"{self.broker}","{self.port}"', 'Broker connection')
+        self.con.at_command(f'AT+QMTCONN=0,"{self.client}"', 'Connect to the client') 
     
     def subscribe(self):
-        self.con.at_command(MQTT_AT['sub1'], 'Subscribe a topic')
-        self.con.at_command(MQTT_AT['sub2'], 'Subscribe a topic')
+        self.con.at_command(f'AT+QMTSUB=0,"{self.qos}","{self.subscribe}","{self.topic}"', 'Subscribe a topic')
+        self.con.at_command('AT+QMTCLOSE=0', 'Unsubscribe a topic')
         
     def publish_message(self):
-        self.con.at_command(MQTT_AT['publish'], 'Publish message to a topic')
-        self.con.at_command(MQTT_AT['message'], 'Message')
-        self.con.at_command(MQTT_AT['read'], 'Receive')
+        self.con.at_command(f'AT+QMTPUBEX=0,0,0,0,"{self.publish}","{self.message_length}"', 'Publish message to a topic')
+        message = input("Enter your message to the MQTT: ")
+        self.con.at_command(message, 'Message')
+        self.con.at_command('AT+QMTRECV=0', 'Received')
+
+    def destroyer_of_mqtt(self):
+        self.con.at_command('AT+QMTCLOSE=0', 'Close Net')
+        self.con.at_command('AT+QMTDISC=0', 'Close Net')
