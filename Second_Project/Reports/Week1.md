@@ -3,7 +3,7 @@
 On the first week my responsibilities were understanding the basics of:
 -   MicroPython
 -   Raspberry Pi Pico
--   Pico LTE Module
+-   Sixfab Pico LTE Module
 
 and all these are studied well. Report related to these titles can be found below.
 
