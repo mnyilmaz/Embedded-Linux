@@ -109,6 +109,6 @@ while True:
 ```
 
 In my case I've used MicroPython via SSH because I've linked Pico on my Raspberry Pi. To configure:
-1. CTRL + SHUFT + P
+1. CTRL + SHIFT + P
 2. MicroPico: Configure Projects (Install all required extensions)
 3. MicroPico: Run
