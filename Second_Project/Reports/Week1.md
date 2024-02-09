@@ -79,7 +79,7 @@ These devices come as unregistered, so registration must be handled at the first
 4. Drag downloaded MicroPython into this drive and wait it to be done and close the window. 
 5. Then Thonny or VS Code Extension can be used to work with Pico. Example code of blinking the LED's is down below:
 
-[MicroPico](https://github.com/paulober/MicroPico?tab=readme-ov-file#requirements) 
+![Screenshot from 2024-02-09 21-07-02](https://github.com/mnyilmaz/Embedded-Linux/assets/68549106/43564a98-7234-4d52-841b-4b97597b793b)
 
 ```
 import machine, utime
