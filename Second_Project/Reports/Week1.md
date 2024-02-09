@@ -92,8 +92,8 @@ while True:
         sleep(1) 
     except KeyboardInterrupt:
         break
-pin.off()
 print("Nox.")
+pin.off()
 ```
 
 In my case I've used MicroPython via SSH because I've linked Pico on my Raspberry Pi. To configure:
