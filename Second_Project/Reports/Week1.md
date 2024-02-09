@@ -92,3 +92,5 @@ while True:
     toggle_led()  # OFF
     utime.sleep(1)
 ```
+
+In my case I've used MicroPython via SSH because I've linked Pico on my Raspberry Pi. 
