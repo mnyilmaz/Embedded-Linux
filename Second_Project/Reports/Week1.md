@@ -80,20 +80,17 @@ These devices come as unregistered, so registration must be handled at the first
 5. Then Thonny or VS Code Extension [MicroPico](https://github.com/paulober/MicroPico?tab=readme-ov-file#requirements) can be used to work with Pico. Example code of blinking the LED's is down below:
 
 ```
-import machine
-from utime import sleep
+import machine, utime
 
 led_pin = machine.Pin(25, machine.Pin.OUT)
 
 print("Lumos Maxima !")
-while True:
-    try:
-        led_pin.toggle()
-        sleep(1) 
-    except KeyboardInterrupt:
-        break
+i = 1
+for i in range (10):
+    led_pin.toggle()
+    utime.sleep(1) 
 print("Nox.")
-led_pin.off()
+led_pin.toggle()
 ```
 
 In my case I've used MicroPython via SSH because I've linked Pico on my Raspberry Pi. To configure:
