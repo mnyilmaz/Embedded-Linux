@@ -47,6 +47,22 @@ Also supports UART, I2C, SPI, PWM protocols; C and C++ programming languages.
  - [Beginner's Guide](https://maker.robotistan.com/raspberry-pi-pico/)
  - [Beginner's Guide #2](https://omerfarukyildiz.com/raspberry-pi-pico-nedir/)
 
-# Pico LTE Module
 
+# Sixfab Pico LTE Module
+With ongoing project,  Sixfab Pico LTE Module will be used. This module includes:
 
+-   Raspberry Pi Pico W Integration
+-   Cellular IoT Connectivity with the Quectel BG95-M3 module. Offers maximum data rates of 588 kbps downlink and 1119 kbps uplink
+-   Onboard LTE Antenna
+-   Embedded SIM Card with an embedded SIM in the MFF2 form factor
+-   Built-in User Interface including buttons and LED's
+-   Convenient Debugging and Firmware Installation, the board includes a BG95 micro USB connector
+-   Power and Data Flexibility
+-   Compact Design features a PCB size of 60 x 75 mm
+-   Camera support via SPI pins from Arducam
+  
+![picopico](https://github.com/mnyilmaz/Embedded-Linux/assets/68549106/c5c5204f-9f6f-49df-b94f-396b7a845b85)
+
+Sources:
+
+ - [Pico LTE Module](https://docs.sixfab.com/docs/sixfab-pico-lte-introduction)
