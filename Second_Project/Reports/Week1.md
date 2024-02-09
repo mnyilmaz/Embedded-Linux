@@ -77,7 +77,9 @@ These devices come as unregistered, so registration must be handled at the first
 2. Then press down **Bootsel** button on the board and keep pressed until you plug you device in. 
 3. On desktop (for Raspberry Pi users) a folder for Pico will appear as USB drive. 
 4. Drag downloaded MicroPython into this drive and wait it to be done and close the window. 
-5. Then Thonny or VS Code Extension [MicroPico](https://github.com/paulober/MicroPico?tab=readme-ov-file#requirements) can be used to work with Pico. Example code of blinking the LED's is down below:
+5. Then Thonny or VS Code Extension can be used to work with Pico. Example code of blinking the LED's is down below:
+
+[MicroPico](https://github.com/paulober/MicroPico?tab=readme-ov-file#requirements) 
 
 ```
 import machine, utime
