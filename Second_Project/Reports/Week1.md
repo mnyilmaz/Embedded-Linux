@@ -37,8 +37,6 @@ Despite other Raspberry Pi models, Pico is known as a rival to Arduino as a micr
  - 2 MB built-in Flash memory capacity
  - 26 GPIO PIN
  - Temperature sensor
-   
-![picopico](https://github.com/mnyilmaz/Embedded-Linux/assets/68549106/985ebc82-60df-4b75-a25b-57e6ba458e48)
 
 Also supports UART, I2C, SPI, PWM protocols; C and C++ programming languages.
 
@@ -62,6 +60,8 @@ With ongoing project,  Sixfab Pico LTE Module will be used. This module includes
 -   Power and Data Flexibility
 -   Compact Design features a PCB size of 60 x 75 mm
 -   Camera support via SPI pins from Arducam
+   
+![picopico](https://github.com/mnyilmaz/Embedded-Linux/assets/68549106/985ebc82-60df-4b75-a25b-57e6ba458e48)
 
 Sources:
 
