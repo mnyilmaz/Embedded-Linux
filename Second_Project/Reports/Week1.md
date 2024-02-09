@@ -95,13 +95,13 @@ led_pin.toggle()
 ```
 import machine, utime
 
-sensor_temp = machine.ADC(4)
+s_temp = machine.ADC(4)
 
 # Pico's pin's voltage output is 3.3 V. Due to that get a significant value by dividing 3.3 V / 2^16 – 1 = 65535
 conversion_factor = 3.3 / (65535)
 while True:
-    reading = sensor_temp.read_u16() * conversion_factor
-    temp = 27 - (reading - 0.706)/0.001721
+    value = s_temp.read_u16() * conversion_factor
+    temp = 27 - (value - 0.706)/0.001721
     print(temp)
     utime.sleep(2)
 ```
