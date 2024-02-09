@@ -37,6 +37,8 @@ Despite other Raspberry Pi models, Pico is known as a rival to Arduino as a micr
  - 2 MB built-in Flash memory capacity
  - 26 GPIO PIN
  - Temperature sensor
+   
+![picopico](https://github.com/mnyilmaz/Embedded-Linux/assets/68549106/985ebc82-60df-4b75-a25b-57e6ba458e48)
 
 Also supports UART, I2C, SPI, PWM protocols; C and C++ programming languages.
 
@@ -78,19 +80,23 @@ These devices come as unregistered, so registration must be handled at the first
 5. Then Thonny or VS Code Extension [MicroPico](https://github.com/paulober/MicroPico?tab=readme-ov-file#requirements) can be used to work with Pico. Example code of blinking the LED's is down below:
 
 ```
-import machine, utime
+from machine import Pin
+from utime import sleep
 
-# Pin GP25: Built-in LED
-led_pin = machine.Pin(25, machine.Pin.OUT)
+pin = Pin("LED", Pin.OUT)
 
-def toggle_led():
-    led_pin.toggle()
-
+print("Lumos Maxima !")
 while True:
-    toggle_led() # ON
-    utime.sleep(1)
-    toggle_led()  # OFF
-    utime.sleep(1)
+    try:
+        pin.toggle()
+        sleep(1) 
+    except KeyboardInterrupt:
+        break
+pin.off()
+print("Nox.")
 ```
 
-In my case I've used MicroPython via SSH because I've linked Pico on my Raspberry Pi. 
+In my case I've used MicroPython via SSH because I've linked Pico on my Raspberry Pi. To configure:
+1. CTRL + SHUFT + P
+2. MicroPico: Configure Projects (Install all required extensions)
+3. MicroPico: Run
