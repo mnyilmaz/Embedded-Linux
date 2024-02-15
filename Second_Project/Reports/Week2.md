@@ -46,6 +46,7 @@ I've checked serial and pyserial plugins, still there was an error while importi
 
 # Bug Fix
 Usually I was using MicroPico with SSH connection over Raspberry Pi. But in last days connection over SSH was quite unstable over the VSCode so I've turned into Thonny IDE to run my codes.
+
 ![serial-module-error](https://github.com/mnyilmaz/Embedded-Linux/assets/68549106/30944e2e-ecd3-4121-a285-49d482df8224)
 
 
