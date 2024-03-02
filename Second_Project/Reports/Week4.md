@@ -1,6 +1,6 @@
 # Week 4
 
-On the first week my responsibilities were:
+On the fourth week my responsibilities were:
 - Planning
 - Python Developer’s Guide and useful installations
 - Deciding app requirements
