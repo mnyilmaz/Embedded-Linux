@@ -1,4 +1,4 @@
-![Screenshot from 2024-03-02 16-29-21](https://github.com/mnyilmaz/Embedded-Linux/assets/68549106/31c8f8bb-b94e-40f1-8063-5257c3a3940a)# Week 4
+# Week 4
 
 On the fourth week my responsibilities were:
 - Planning
@@ -29,6 +29,7 @@ ThingsBoard app is more related with sensors linked to device such as arduino, r
 ThingsBoard website requires to sign in and add your current device. As I follow [documents](https://thingsboard.io/docs/getting-started-guides/helloworld/)
 figured out to connect device but haven't tested yet. At first aim is to complete config file then accomplish connection steps. Here basic connection tests and device can be found below:
 
-![Uploading Screenshot from 2024-03-02 16-28-57.png…]()
+![Screenshot from 2024-03-02 16-29-21](https://github.com/mnyilmaz/Embedded-Linux/assets/68549106/31c8f8bb-b94e-40f1-8063-5257c3a3940a)
+![Screenshot from 2024-03-02 16-28-57](https://github.com/mnyilmaz/Embedded-Linux/assets/68549106/c140b3db-0aa5-4011-b1fa-b479c9ce416f)
 
-![Uploading Screenshot from 2024-03-02 16-29-21.png…]()
+
