@@ -49,30 +49,29 @@ This project has to be done within 4 weeks. That requires a dynamic agile projec
 ## Week 1
 
  - [x] Understanding Python coding essentials related to python developers Guideline
- - [ ] Installations
+ - [x] Installations
  - [x] Github branch implementation under pico-lte-sdk
- - [ ] Decision about app implementation related to ThingsBoard App
+ - [x] Decision about app implementation related to ThingsBoard App
  - [x] Prepare a project plan
  - [x] Prepare a Gantt Chart
 
 ## Week 2
 
- - [ ] 
- - [ ] 
- - [ ] 
- - [ ] 
+ - [ ] Configure config file
+ - [ ] Basic conenction implementatiions such as network
+ - [ ] Capable to get heat (or GPS) values
 
 ## Week 3
 
- - [ ] 
- - [ ] 
- - [ ] 
+ - [ ] MQTT connection set up
+ - [ ] MQTT publish and subscribe tests
+ - [ ] Heat (or GPS) values test
 
 ## Week 4
 
- - [ ] 
- - [ ] 
- - [ ] 
+ - [ ] Example test file implementation
+ - [ ] File tests
+ - [ ] Data tests
 
 # Gantt Chart
 
@@ -83,4 +82,5 @@ Gantt charts are quite essential in project planning to observe:
  - Milestones
  in a visualized manner. That allows to follow the project better.
 
+![Screenshot from 2024-03-03 23-36-59](https://github.com/mnyilmaz/Embedded-Linux/assets/68549106/e1987290-5f2c-45a5-8b0a-1072d9ec1679)
 
