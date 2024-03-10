@@ -44,6 +44,23 @@ config.json
     }
 }
 ```
+```
+example config
+
+"""
+"broker": {
+    "name":"Default Local Broker",
+    "host":"IP Address",
+    "port":1883,
+    "clientId": "ThingsBoard_gateway",
+    "security": {
+      "type": "basic",
+      "username": "**********",
+      "password": "***********"
+    }
+  }
+ """
+```
 
 # Network Connections
 Project base is ThingBoard app but earlier, I've installed MQTT-Explorer to make sure connection has established. At first basic configuration failed due to core.py configuration. Related to this error
