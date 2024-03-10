@@ -57,9 +57,9 @@ This project has to be done within 4 weeks. That requires a dynamic agile projec
 
 ## Week 2
 
- - [ ] Configure config file
- - [ ] Basic conenction implementatiions such as network
- - [ ] Capable to get heat (or GPS) values
+ - [x] Configure config file
+ - [x] Basic conenction implementatiions such as network
+ - [ ] Capable to get heat (or GPS) values -> Due to errors failed
 
 ## Week 3
 
