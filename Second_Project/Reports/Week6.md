@@ -20,8 +20,8 @@ From ThinsgBoard app for this time I followed a different approach including gat
 **1. Dashboard addition (or selection if it exists)**
 
 ![Screenshot from 2024-03-18 00-19-22](https://github.com/mnyilmaz/Embedded-Linux/assets/68549106/4259a069-9737-48b3-b7aa-fcdbd54ec117)
-**
-2. Add and set a new connector**
+
+**2. Add and set a new connector**
 
 ![Screenshot from 2024-03-18 00-19-31](https://github.com/mnyilmaz/Embedded-Linux/assets/68549106/9f7789d5-c6d0-4030-ad84-7a43a4d1b6c7)
 ![Screenshot from 2024-03-18 00-21-35](https://github.com/mnyilmaz/Embedded-Linux/assets/68549106/3fad2dd8-9f41-4985-8e84-2c0c06d4e6f6)
