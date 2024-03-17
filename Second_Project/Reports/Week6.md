@@ -32,7 +32,7 @@ From ThinsgBoard app for this time I followed a different approach including gat
  filters.
 
 **3.  Adjust values for testing**
-4. At this point as I thought and designed at first given the device name as in config file yet as I learnt payload is a better option for this. Key values can be used for this. Also I've searched forums and documentation yet I could not find subscribe option for ThingsBoard app. 
+   At this point as I thought and designed at first given the device name as in config file yet as I learnt payload is a better option for this. Key values can be used for this. Also I've searched forums and documentation yet I could not find subscribe option for ThingsBoard app. 
 
 
 	
