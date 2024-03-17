@@ -9,9 +9,48 @@ and all these are studied well. Report related to these titles can be found belo
 
 
 # Uploading new version and run
-After updating ThingsBoard app I've uploaded it into Raspberry Pico and run the example that I wrote. Yet there was not any errors also there wasn't any responses at the topic that I selected for this specific application. Response can be found at below.
+After updating ThingsBoard app I've uploaded it into Raspberry Pico and run the example that I wrote. Yet there was not any errors also there wasn't any responses at the topic that I selected for this specific application. Response can be found at below. After re-arranging the code I was able to get response from the server.
+
+Example Code:
+```
+"""
+Example code for publish topics for ThingsBoard and
+recerving data from ThingsBoard channel by using MQTT.
+
+Example Configuration
+---------------------
+Create a config.json file in the root directory of the PicoLTE device.
+config.json file must include the following parameters for this example:
+
+{
+    "thingsboard": {
+        "host":"[HOST_ADDRESS]",
+        "port": [PORT_NUMBER],
+        "pub_topic": "[YOUR_MQTT_TOPIC]",
+        "username": "[DEVICE_MQTT_USERNAME]",
+        "password": "[DEVICE_MQTT_PASSWORD]",
+        "qos": "[QoS]",
+    }
+}
+"""
+
+from pico_lte.core import PicoLTE
+from pico_lte.common import debug
+
+picoLTE = PicoLTE()
+
+debug.info("Publishing a message.")
+
+
+payload = {"device": "temp_sensor", "value_type": "celcius", "area": "indoor", "status": "Temperature value"}
+
+debug.info("Publishing data to ThingsBoard...")
+result = picoLTE.thingsboard.publish_message(payload)
+debug.info("Result:", result)
+```
 
 ![Screenshot from 2024-03-17 22-17-59](https://github.com/mnyilmaz/Embedded-Linux/assets/68549106/5a06dfb2-fcd4-4a50-a853-d36afdcbe198)
+![Screenshot from 2024-03-18 01-38-51](https://github.com/mnyilmaz/Embedded-Linux/assets/68549106/07326bf2-d492-4f71-a853-723718261d1c)
 
 
 # Publish and subscribe tests
