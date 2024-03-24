@@ -31,7 +31,7 @@ to follow as the same instruction at ThingsBoard App. Yet after first run, follo
 ```
 INFO: Result: {'status': 1, 'response': ['+QMTCONN: 0,0,2', '+QMTSTAT: 0,4'], 'interval': 0}
 ```
-When I followed to Quectel Documentation for [BG96 MQTT Applicaiton](https://www.quectel.com/wp-content/uploads/2021/03/Quectel_BG96_MQTT_Application_Note_V1.2.pdf)
+When I followed to Quectel Documentation for [BG96 MQTT Application](https://www.quectel.com/wp-content/uploads/2021/03/Quectel_BG96_MQTT_Application_Note_V1.2.pdf)
 outputs were as below:
 
  - +QMTCONN: 0,0,2: Connection Refused: Identifier Rejected
