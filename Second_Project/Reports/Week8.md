@@ -22,6 +22,4 @@ Subscribe code has been written earlier yet after errors test process for this p
 
 
 ## Documentation
-
-
-
+In final, a documentation must be written related to define the app that I've written. For this part our team shared an example document for us to make this app understanbele for the users. These examples had been observed and planned has been made for this documentation. Yet for the subscribe part plan is still on its way due to that preparation of this part is missing for now. Otherwise md file is being prepared.
