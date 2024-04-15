@@ -3,7 +3,8 @@
 On the tenth week my responsibilities were:
 - MQTT Subscribe tests
 - Documentation
-and all these are studied well. Report related to these titles can be found below.
+and all these are studied well.
+Report related to these titles can be found below.
 
 
 # MQTT Subscribe Tests
