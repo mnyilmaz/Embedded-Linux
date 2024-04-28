@@ -1,6 +1,6 @@
 # Week 11
 
-On the tenth week my responsibilities were:
+On the eleventh week my responsibilities were:
 - MQTT Subscribe tests over attributes
 - Documentation
 
